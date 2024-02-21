@@ -31,6 +31,7 @@
   <!-- IziToast -->
   <link rel="stylesheet" href="/notif/dist/css/iziToast.min.css">
   <script src="/notif/dist/js/iziToast.min.js" type="text/javascript"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-purple layout-top-nav">
@@ -60,7 +61,7 @@
         <div class="row">
           <div class="col-md-4">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="text-center">
             </div>
             
@@ -85,6 +86,10 @@
                   <input type="password" name="password" class="form-control" placeholder="key">
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
+                <div class="cf-turnstile"
+                    data-sitekey="{{ config('services.cloudflare.turnstile.site_key') }}"
+                    data-callback="onTurnstileSuccess"
+                ></div>
                 <div class="form-group has-feedback">
                   <button type="submit" class="btn btn-primary btn-flat btn-block pull-right"><i class="fa fa-send"></i> MASUK</button>
                 </div>
