@@ -78,12 +78,12 @@
               <div class="box-body" style="padding:40px">
                 <div class="form-group has-feedback">
                   <label>Username</label>
-                  <input type="text" name="username" class="form-control" placeholder="user">
+                  <input type="text" name="username" class="form-control" placeholder="user" required>
                   <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
                   <label>Password</label>
-                  <input type="password" name="password" class="form-control" placeholder="key">
+                  <input type="password" name="password" class="form-control" placeholder="pass" required>
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="cf-turnstile"
