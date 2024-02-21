@@ -12,6 +12,11 @@
     
     
     <li class="{{ (request()->is('superadmin/user*')) ? 'active' : '' }}"><a href="/superadmin/user"><i class="fa fa-arrow-right"></i> <span><i>Data User</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/program*')) ? 'active' : '' }}"><a href="/superadmin/program"><i class="fa fa-arrow-right"></i> <span><i>Data Program</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/kegiatan*')) ? 'active' : '' }}"><a href="/superadmin/kegiatan"><i class="fa fa-arrow-right"></i> <span><i>Data Kegiatan</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/subkegiatan*')) ? 'active' : '' }}"><a href="/superadmin/subkegiatan"><i class="fa fa-arrow-right"></i> <span><i>Data Subkegiatan</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/rincian*')) ? 'active' : '' }}"><a href="/superadmin/rincian"><i class="fa fa-arrow-right"></i> <span><i>Data Rincian</i></span></a></li>
+    <li class="header">VERIFIKASI DATA</li>
     <li class="{{ (request()->is('superadmin/npd*')) ? 'active' : '' }}"><a href="/superadmin/npd"><i class="fa fa-file"></i> <span><i>NPD Anggaran</i></span></a></li>
     <li class="{{ (request()->is('superadmin/npdp*')) ? 'active' : '' }}"><a href="/superadmin/npdp"><i class="fa fa-file"></i> <span><i>NPD Pencairan</i></span></a></li>
     {{-- <li class="{{ (request()->is('superadmin/tim*')) ? 'active' : '' }}"><a href="/superadmin/tim"><i class="fa fa-arrow-right"></i> <span><i>Tim</i></span></a></li>
