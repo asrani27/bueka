@@ -6,13 +6,10 @@ use App\Http\Controllers\NPDController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NpdpController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\HasValidCaptcha;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\SuperadminController;
-use App\Http\Controllers\SerahTerimaController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
 
