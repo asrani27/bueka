@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-
+        dd('d');
         if (Auth::check()) {
             if (Auth::user()->hasRole('superadmin')) {
                 return redirect('superadmin');
