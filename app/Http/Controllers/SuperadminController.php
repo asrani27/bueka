@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\NPD;
 use App\Models\NpdDetail;
+use App\Models\Program;
+use App\Models\Subkegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -18,7 +21,10 @@ class SuperadminController extends Controller
     public function editNpd($id)
     {
         $data = NPD::find($id);
-        return view('superadmin.npd.edit', compact('data'));
+        $p = Program::get();
+        $k = Kegiatan::get();
+        $s = Subkegiatan::get();
+        return view('superadmin.npd.edit', compact('data', 'p', 'k', 's'));
     }
     public function uraianNpd($id)
     {
@@ -27,7 +33,10 @@ class SuperadminController extends Controller
     }
     public function createNpd()
     {
-        return view('superadmin.npd.create');
+        $p = Program::get();
+        $k = Kegiatan::get();
+        $s = Subkegiatan::get();
+        return view('superadmin.npd.create', compact('p', 'k', 's'));
     }
 
     public function storeNpd(Request $req)

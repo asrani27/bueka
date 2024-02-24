@@ -24,19 +24,34 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Program</label>
                   <div class="col-sm-10">
-                    <input type="text" name="program" class="form-control" required value="{{$data->program}}">
+                    <select name="kode_program" class="form-control" required>
+                      <option value="">-</option>
+                      @foreach ($p as $item) 
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Kegiatan</label>
                   <div class="col-sm-10">
-                    <input type="text" name="kegiatan" class="form-control" required value="{{$data->kegiatan}}">
+                    <select name="kode_kegiatan" class="form-control" required>
+                      <option value="">-</option>
+                      @foreach ($k as $item) 
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Subkegiatan</label>
                   <div class="col-sm-10">
-                    <input type="text" name="subkegiatan" class="form-control" required value="{{$data->subkegiatan}}">
+                    <select name="kode_subkegiatan" class="form-control" required>
+                      <option value="">-</option>
+                      @foreach ($s as $item) 
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">

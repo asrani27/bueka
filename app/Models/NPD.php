@@ -19,4 +19,16 @@ class NPD extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'kode_program');
+    }
+    public function kegiatan()
+    {
+        return $this->belongsTo(Kegiatan::class, 'kode_kegiatan');
+    }
+    public function subkegiatan()
+    {
+        return $this->belongsTo(Subkegiatan::class, 'kode_subkegiatan');
+    }
 }
