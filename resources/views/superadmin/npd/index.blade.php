@@ -23,6 +23,7 @@
                   <th>Tanggal</th>
                   <th>Nomor DPA</th>
                   <th>Tahun Anggaran</th>
+                  <th>Subkegiatan</th>
                   <th>Aksi</th>
                 </tr>
                 @foreach ($data as $key => $item)
@@ -31,6 +32,7 @@
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->kode.' - '.$item->subkegiatan->nama}}</td>
                     
                     <td>
                         <a href="/superadmin/npd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>

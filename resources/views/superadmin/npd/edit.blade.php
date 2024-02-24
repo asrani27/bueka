@@ -27,7 +27,7 @@
                     <select name="kode_program" class="form-control" required>
                       <option value="">-</option>
                       @foreach ($p as $item) 
-                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode_program ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -38,7 +38,7 @@
                     <select name="kode_kegiatan" class="form-control" required>
                       <option value="">-</option>
                       @foreach ($k as $item) 
-                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode_kegiatan ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -49,7 +49,7 @@
                     <select name="kode_subkegiatan" class="form-control" required>
                       <option value="">-</option>
                       @foreach ($s as $item) 
-                        <option value="{{$item->kode}}" {{$item->kode == $data->kode ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
+                        <option value="{{$item->kode}}" {{$item->kode == $data->kode_subkegiatan ?'selected':''}}>{{$item->kode}} - {{$item->nama}}</option>
                       @endforeach
                     </select>
                   </div>

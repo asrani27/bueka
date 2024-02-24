@@ -11,4 +11,8 @@ class Subkegiatan extends Model
     protected $table = 'subkegiatan';
     protected $guarded = ['id'];
     public $timestamps = false;
+
+
+    protected $primaryKey = 'kode';
+    public $incrementing = false;
 }
