@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class KegiatanController extends Controller
 {

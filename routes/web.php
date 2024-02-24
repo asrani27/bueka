@@ -10,7 +10,10 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RincianController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\SuperadminController;
+use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
 
