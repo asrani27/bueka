@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
@@ -38,6 +39,34 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin/user/edit/{id}', [UserController::class, 'edit']);
     Route::post('superadmin/user/edit/{id}', [UserController::class, 'update']);
     Route::get('superadmin/user/delete/{id}', [UserController::class, 'delete']);
+
+    Route::get('superadmin/program', [ProgramController::class, 'index']);
+    Route::get('superadmin/program/create', [ProgramController::class, 'create']);
+    Route::post('superadmin/program/create', [ProgramController::class, 'store']);
+    Route::get('superadmin/program/edit/{id}', [ProgramController::class, 'edit']);
+    Route::post('superadmin/program/edit/{id}', [ProgramController::class, 'update']);
+    Route::get('superadmin/program/delete/{id}', [ProgramController::class, 'delete']);
+
+    Route::get('superadmin/kegiatan', [KegiatanController::class, 'index']);
+    Route::get('superadmin/kegiatan/create', [KegiatanController::class, 'create']);
+    Route::post('superadmin/kegiatan/create', [KegiatanController::class, 'store']);
+    Route::get('superadmin/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
+    Route::post('superadmin/kegiatan/edit/{id}', [KegiatanController::class, 'update']);
+    Route::get('superadmin/kegiatan/delete/{id}', [KegiatanController::class, 'delete']);
+
+    Route::get('superadmin/subkegiatan', [SubkegiatanController::class, 'index']);
+    Route::get('superadmin/subkegiatan/create', [SubkegiatanController::class, 'create']);
+    Route::post('superadmin/subkegiatan/create', [SubkegiatanController::class, 'store']);
+    Route::get('superadmin/subkegiatan/edit/{id}', [SubkegiatanController::class, 'edit']);
+    Route::post('superadmin/subkegiatan/edit/{id}', [SubkegiatanController::class, 'update']);
+    Route::get('superadmin/subkegiatan/delete/{id}', [SubkegiatanController::class, 'delete']);
+
+    Route::get('superadmin/rincian', [RincianController::class, 'index']);
+    Route::get('superadmin/rincian/create', [RincianController::class, 'create']);
+    Route::post('superadmin/rincian/create', [RincianController::class, 'store']);
+    Route::get('superadmin/rincian/edit/{id}', [RincianController::class, 'edit']);
+    Route::post('superadmin/rincian/edit/{id}', [RincianController::class, 'update']);
+    Route::get('superadmin/rincian/delete/{id}', [RincianController::class, 'delete']);
 
     Route::get('superadmin/npd', [SuperadminController::class, 'npd']);
     Route::get('superadmin/npd/create', [SuperadminController::class, 'createNpd']);
