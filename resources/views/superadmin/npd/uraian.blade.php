@@ -114,7 +114,7 @@
                       {{$key + 1}}
                         </td>
                         <td>{{$item->kode_rekening}}</td>
-                        <td>{{$item->uraian}}</td>
+                        <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td>{{number_format($item->anggaran)}}</td>
                         <td></td>
                         <td>{{$item->pencairan}}</td>
