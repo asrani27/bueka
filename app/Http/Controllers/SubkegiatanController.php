@@ -36,12 +36,12 @@ class SubkegiatanController extends Controller
     }
     public function edit($id)
     {
-        $data = Subkegiatan::find($id);
+        $data = Subkegiatan::where('id', $id)->first();
         return view('superadmin.subkegiatan.edit', compact('data'));
     }
     public function update(Request $req, $id)
     {
-        $user = Subkegiatan::find($id)->update([
+        $user = Subkegiatan::where('id', $id)->first()->update([
             'kode' => $req->kode,
             'nama' => $req->nama
         ]);
@@ -50,7 +50,7 @@ class SubkegiatanController extends Controller
     }
     public function delete($id)
     {
-        Subkegiatan::find($id)->delete();
+        Subkegiatan::where('id', $id)->first()->delete();
         Session::flash('success', 'Berhasil Di hapus');
         return back();
     }

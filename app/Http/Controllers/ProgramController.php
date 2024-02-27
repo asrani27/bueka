@@ -36,12 +36,12 @@ class ProgramController extends Controller
     }
     public function edit($id)
     {
-        $data = Program::find($id);
+        $data = Program::where('id', $id)->first();
         return view('superadmin.program.edit', compact('data'));
     }
     public function update(Request $req, $id)
     {
-        $user = Program::find($id)->update([
+        $user = Program::where('id', $id)->first()->update([
             'kode' => $req->kode,
             'nama' => $req->nama
         ]);
@@ -50,7 +50,7 @@ class ProgramController extends Controller
     }
     public function delete($id)
     {
-        Program::find($id)->delete();
+        Program::where('id', $id)->first()->delete();
         Session::flash('success', 'Berhasil Di hapus');
         return back();
     }

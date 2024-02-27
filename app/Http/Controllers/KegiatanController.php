@@ -36,12 +36,12 @@ class KegiatanController extends Controller
     }
     public function edit($id)
     {
-        $data = Kegiatan::find($id);
+        $data = Kegiatan::where('id', $id)->first();
         return view('superadmin.kegiatan.edit', compact('data'));
     }
     public function update(Request $req, $id)
     {
-        $user = Kegiatan::find($id)->update([
+        $user = Kegiatan::where('id', $id)->first()->update([
             'kode' => $req->kode,
             'nama' => $req->nama
         ]);
@@ -50,7 +50,7 @@ class KegiatanController extends Controller
     }
     public function delete($id)
     {
-        Kegiatan::find($id)->delete();
+        Kegiatan::where('id', $id)->first()->delete();
         Session::flash('success', 'Berhasil Di hapus');
         return back();
     }

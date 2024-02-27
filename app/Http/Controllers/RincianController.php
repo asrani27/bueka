@@ -50,7 +50,7 @@ class RincianController extends Controller
     }
     public function delete($id)
     {
-        Rincian::find($id)->delete();
+        Rincian::where('id', $id)->first()->delete();
         Session::flash('success', 'Berhasil Di hapus');
         return back();
     }
