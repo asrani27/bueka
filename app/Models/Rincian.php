@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rincian extends Model
 {
     use HasFactory;
-    protected $table = 'rincian';
+    protected $table = 'npd_rincian';
     protected $guarded = ['id'];
     public $timestamps = false;
 
