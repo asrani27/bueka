@@ -114,7 +114,10 @@
                       {{$key + 1}}
                         </td>
                         <td>{{$item->kode_rekening}}</td>
-                        <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
+                        <td>
+                          <a href="#" class="addrincian"><i class="fa fa-plus text-success"></i> </a>
+
+                          {{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td>{{number_format($item->anggaran)}}</td>
                         <td></td>
                         <td>{{$item->pencairan}}</td>
@@ -218,13 +221,13 @@
                         <select class="form-control" name="kode_rekening" required>
                           <option value="">-pilih-</option>
                           @foreach ($rekening as $item)
-                              <option value="{{$item->id}}">{{$item->kode}} - {{$item->nama}}</option>
+                              <option value="{{$item->kode}}">{{$item->kode}} - {{$item->nama}}</option>
                           @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Anggaran</label>
-                        <input type="text" class="form-control" name="anggaran" required>
+                        <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
                     </div>
                 </div>
   
@@ -242,7 +245,15 @@
 
 @endsection
 @push('js')
-
+<script>
+  function hanyaAngka(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode > 31 && (charCode < 48 || charCode > 57))
+  
+      return false;
+    return true;
+  }
+  </script>
 
 <script>
   $(document).on('click', '.tambahuraian', function() {
