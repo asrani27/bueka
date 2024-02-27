@@ -21,7 +21,7 @@
                     <select class="form-control" name="npd_id">
 
                       @foreach ($subkegiatan as $item)
-                        <option value="{{$item->id}}">{{$item->tahun_anggaran}} - {{$item->subkegiatan}}</option>
+                        <option value="{{$item->id}}">({{$item->tahun_anggaran}}) {{$item->subkegiatan->kode}} -  {{$item->subkegiatan->nama}}</option>
                       @endforeach
                     </select>
                   </div>

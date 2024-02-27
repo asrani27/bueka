@@ -305,7 +305,7 @@
       return false;
     return true;
   }
-  </script>
+</script>
 
 <script>
   $(document).on('click', '.tambahuraian', function() {

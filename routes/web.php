@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('admin/npd', [NPDController::class, 'index']);
     Route::get('admin/npd/uraian/{id}', [NPDController::class, 'uraian']);
     Route::post('admin/npd/uraian/{id}/pencairan', [NPDController::class, 'storePencairan']);
+    Route::post('admin/npd/uraian/{id}/pencairanrincian', [NPDController::class, 'storePencairanRincian']);
     Route::get('admin/npd/delete/{id}', [NPDController::class, 'delete']);
     Route::get('admin/npd/edit/{id}', [NPDController::class, 'edit']);
     Route::get('admin/npd/create', [NPDController::class, 'create']);

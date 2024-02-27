@@ -25,6 +25,7 @@
                   <th>Nomor DPA</th>
                   <th>Jumlah Dana</th>
                   <th>Tahun Anggaran</th>
+                  <th>Sub Kegiatan</th>
                   <th>Aksi</th>
                 </tr>
                 @foreach ($data as $key => $item)
@@ -35,6 +36,7 @@
                     <td>{{$item->nomor_dpa}}</td>
                     <td>0</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td>{{$item->subkegiatan->nama}}</td>
                     
                     <td>
                         <a href="/admin/npd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>
