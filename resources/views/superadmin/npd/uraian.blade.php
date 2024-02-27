@@ -106,16 +106,16 @@
                     <td>Sisa</td>
                   </tr>
                   @foreach ($data->detail as $key => $item)
-                      <tr>
+                      <tr class="text-bold">
                         <td>
                         
-                      <a href="/superadmin/npd/uraian/{{$data->id}}/rekening/{{$item->id}}" onclick="return confirm('Yakin ingin di hapus');"><i class="fa fa-trash text-danger"></i> </a>
+                      <a href="/superadmin/npd/uraian/{{$data->id}}/rekening/{{$item->id}}" onclick="return confirm('Yakin ingin menghapus rekening');"><i class="fa fa-trash text-danger"></i> </a>
 
                       {{$key + 1}}
                         </td>
                         <td>{{$item->kode_rekening}}</td>
                         <td>
-                          <a href="#" class="addrincian"><i class="fa fa-plus text-success"></i> </a>
+                          <a href="#" data-npd_detail_id="{{$item->id}}" class="addrincian"><i class="fa fa-plus text-success"></i> </a>
 
                           {{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td>{{number_format($item->anggaran)}}</td>
@@ -123,6 +123,20 @@
                         <td>{{$item->pencairan}}</td>
                         <td>{{number_format($item->anggaran - $item->pencairan)}}</td>
                       </tr>
+                      @foreach ($item->rincian as $item2)
+                          <tr>
+                            <td></td>
+                            <td>{{$item2->kode_rincian}}</td>
+                            <td>
+
+                              <a href="/superadmin/deleterincian/{{$item2->id}}" onclick="return confirm('Yakin ingin menghapus rincian');"><i class="fa fa-trash text-danger"></i> </a>
+                              {{$item2->rincian->nama}}</td>
+                            <td>{{number_format($item2->anggaran)}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                      @endforeach
                   @endforeach
                   <tr style="background-color: aquamarine">
                     <td colspan=3>TOTAL</td>
@@ -203,7 +217,7 @@
     </div>
    </div>
     
-   <div class="modal fade" id="modal-tambah">
+  <div class="modal fade" id="modal-tambah">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" action="/superadmin/npd/uraian/{{$data->id}}/add" enctype="multipart/form-data">
@@ -240,6 +254,44 @@
         </div>
     </div>
   </div> 
+  <div class="modal fade" id="modal-rincian">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/superadmin/addrincian" enctype="multipart/form-data">
+                @csrf
+                
+                <div class="modal-header bg-primary">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Rincian</h4>
+                </div>
+  
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Kode Rincian</label>
+                        <select class="form-control" name="kode_rincian" required>
+                          <option value="">-pilih-</option>
+                          @foreach ($rincian as $item)
+                              <option value="{{$item->kode}}">{{$item->kode}} - {{$item->nama}}</option>
+                          @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Anggaran</label>
+                        <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
+                        <input type="hidden" class="form-control" id="npd_detail_id" name="npd_detail_id" required onkeypress="return hanyaAngka(event)"/>
+                    </div>
+                </div>
+  
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i>
+                        Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div> 
 </section>
 
 
@@ -259,6 +311,12 @@
   $(document).on('click', '.tambahuraian', function() {
      $("#modal-tambah").modal();
   });
-  </script>
+</script>
+<script>
+  $(document).on('click', '.addrincian', function() {
+     $('#npd_detail_id').val($(this).data('npd_detail_id'));
+     $("#modal-rincian").modal();
+  });
+</script>
 @endpush
 

@@ -7,6 +7,8 @@ use App\Models\Program;
 use App\Models\Kegiatan;
 use App\Models\Rekening;
 use App\Models\NpdDetail;
+use App\Models\NpdRincian;
+use App\Models\Rincian;
 use App\Models\Subkegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +33,8 @@ class SuperadminController extends Controller
     {
         $data = NPD::find($id);
         $rekening = Rekening::get();
-        return view('superadmin.npd.uraian', compact('data', 'rekening'));
+        $rincian = Rincian::get();
+        return view('superadmin.npd.uraian', compact('data', 'rekening', 'rincian'));
     }
     public function createNpd()
     {
@@ -41,6 +44,15 @@ class SuperadminController extends Controller
         return view('superadmin.npd.create', compact('p', 'k', 's'));
     }
 
+    public function storeRincian(Request $req)
+    {
+        $param = $req->all();
+
+        NpdRincian::create($param);
+
+        Session::flash('success', 'Berhasil disimpan');
+        return back();
+    }
     public function storeNpd(Request $req)
     {
 
@@ -82,6 +94,14 @@ class SuperadminController extends Controller
     {
 
         NPD::find($id)->delete();
+
+        Session::flash('success', 'Berhasil dihapus');
+        return back();
+    }
+    public function deleteRincian($id)
+    {
+
+        NpdRincian::find($id)->delete();
 
         Session::flash('success', 'Berhasil dihapus');
         return back();

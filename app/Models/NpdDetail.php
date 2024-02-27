@@ -15,4 +15,9 @@ class NpdDetail extends Model
     {
         return $this->belongsTo(Rekening::class, 'kode_rekening');
     }
+
+    public function rincian()
+    {
+        return $this->hasMany(NpdRincian::class, 'npd_detail_id');
+    }
 }
