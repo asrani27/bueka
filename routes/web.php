@@ -16,6 +16,7 @@ use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
+use App\Http\Controllers\RekeningController;
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
@@ -71,6 +72,13 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('superadmin/rincian/edit/{id}', [RincianController::class, 'update']);
     Route::get('superadmin/rincian/delete/{id}', [RincianController::class, 'delete']);
 
+    Route::get('superadmin/rekening', [RekeningController::class, 'index']);
+    Route::get('superadmin/rekening/create', [RekeningController::class, 'create']);
+    Route::post('superadmin/rekening/create', [RekeningController::class, 'store']);
+    Route::get('superadmin/rekening/edit/{id}', [RekeningController::class, 'edit']);
+    Route::post('superadmin/rekening/edit/{id}', [RekeningController::class, 'update']);
+    Route::get('superadmin/rekening/delete/{id}', [RekeningController::class, 'delete']);
+
     Route::get('superadmin/npd', [SuperadminController::class, 'npd']);
     Route::get('superadmin/npd/create', [SuperadminController::class, 'createNpd']);
     Route::post('superadmin/npd/create', [SuperadminController::class, 'storeNpd']);
@@ -79,6 +87,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin/npd/delete/{id}', [SuperadminController::class, 'deleteNpd']);
     Route::get('superadmin/npd/uraian/{id}', [SuperadminController::class, 'uraianNpd']);
     Route::post('superadmin/npd/uraian/{id}/add', [SuperadminController::class, 'storeUraianNpd']);
+    Route::get('superadmin/npd/uraian/{id}/rekening/{id_rekening}', [SuperadminController::class, 'deleteUraian']);
 
     Route::get('superadmin/npdp', [NpdpController::class, 'index']);
     Route::get('superadmin/npdp/uraian/{id}', [NpdpController::class, 'uraian']);

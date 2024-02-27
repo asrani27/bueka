@@ -11,4 +11,7 @@ class Program extends Model
     protected $table = 'program';
     protected $guarded = ['id'];
     public $timestamps = false;
+
+    protected $primaryKey = 'kode';
+    public $incrementing = false;
 }

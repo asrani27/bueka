@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kegiatan;
 use App\Models\NPD;
-use App\Models\NpdDetail;
 use App\Models\Program;
+use App\Models\Kegiatan;
+use App\Models\Rekening;
+use App\Models\NpdDetail;
 use App\Models\Subkegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,8 @@ class SuperadminController extends Controller
     public function uraianNpd($id)
     {
         $data = NPD::find($id);
-        return view('superadmin.npd.uraian', compact('data'));
+        $rekening = Rekening::get();
+        return view('superadmin.npd.uraian', compact('data', 'rekening'));
     }
     public function createNpd()
     {
@@ -41,6 +43,7 @@ class SuperadminController extends Controller
 
     public function storeNpd(Request $req)
     {
+
         $param = $req->all();
         $param['user_id'] = Auth::user()->id;
         $param['jenis'] = 'anggaran';
@@ -79,6 +82,14 @@ class SuperadminController extends Controller
     {
 
         NPD::find($id)->delete();
+
+        Session::flash('success', 'Berhasil dihapus');
+        return back();
+    }
+    public function deleteUraian($id, $id_rekening)
+    {
+
+        NpdDetail::find($id_rekening)->delete();
 
         Session::flash('success', 'Berhasil dihapus');
         return back();

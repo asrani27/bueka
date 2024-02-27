@@ -11,4 +11,7 @@ class Rincian extends Model
     protected $table = 'rincian';
     protected $guarded = ['id'];
     public $timestamps = false;
+
+    protected $primaryKey = 'kode';
+    public $incrementing = false;
 }

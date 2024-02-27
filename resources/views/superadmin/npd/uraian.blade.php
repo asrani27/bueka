@@ -31,7 +31,7 @@
                   <tr>
                     <td style="text-align:center;font-weight:bold" colspan="4">
                       BENDAHARA PENGELUARAN<br/>
-                      SKPD : (4.01.03.03.)  BAGIAN ORGANISASI SEKRETARIAT DAERAH KOTA BANJARMASIN
+                      SKPD : ({{$data->subkegiatan == null ? '': $data->subkegiatan->kode}})  BAGIAN ORGANISASI SEKRETARIAT DAERAH KOTA BANJARMASIN
                     </td>
                   </tr>
                   <tr>
@@ -47,19 +47,19 @@
                     <td>2</td>
                     <td>Program</td>
                     <td>:</td>
-                    <td>{{$data->program}}</td>
+                    <td>{{$data->program == null ? '': $data->program->kode .' - '.$data->program->nama}}</td>
                   </tr>
                   <tr>
                     <td>3</td>
                     <td>Kegiatan</td>
                     <td>:</td>
-                    <td>{{$data->kegiatan}}</td>
+                    <td>{{$data->kegiatan == null ? '': $data->kegiatan->kode .' - '.$data->kegiatan->nama}}</td>
                   </tr>
                   <tr>
                     <td>4</td>
                     <td>Subkegiatan</td>
                     <td>:</td>
-                    <td>{{$data->subkegiatan}}</td>
+                    <td>{{$data->subkegiatan == null ? '': $data->subkegiatan->kode .' - '.$data->subkegiatan->nama}}</td>
                   </tr>
                   <tr>
                     <td>5</td>
@@ -107,7 +107,12 @@
                   </tr>
                   @foreach ($data->detail as $key => $item)
                       <tr>
-                        <td>{{$key + 1}}</td>
+                        <td>
+                        
+                      <a href="/superadmin/npd/uraian/{{$data->id}}/rekening/{{$item->id}}" onclick="return confirm('Yakin ingin di hapus');"><i class="fa fa-trash text-danger"></i> </a>
+
+                      {{$key + 1}}
+                        </td>
                         <td>{{$item->kode_rekening}}</td>
                         <td>{{$item->uraian}}</td>
                         <td>{{number_format($item->anggaran)}}</td>
@@ -210,11 +215,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Kode Rek</label>
-                        <input type="text" class="form-control" name="kode_rekening" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Uraian</label>
-                        <input type="text" class="form-control" name="uraian" required>
+                        <select class="form-control" name="kode_rekening" required>
+                          <option value="">-pilih-</option>
+                          @foreach ($rekening as $item)
+                              <option value="{{$item->id}}">{{$item->kode}} - {{$item->nama}}</option>
+                          @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Anggaran</label>
