@@ -130,7 +130,7 @@
                             <td>
 
                               <a href="/superadmin/deleterincian/{{$item2->id}}" onclick="return confirm('Yakin ingin menghapus rincian');"><i class="fa fa-trash text-danger"></i> </a>
-                              {{$item2->rincian->nama}}</td>
+                              {{$item2->rincian == null ? '' : $item2->rincian->nama}}</td>
                             <td>{{number_format($item2->anggaran)}}</td>
                             <td></td>
                             <td></td>
