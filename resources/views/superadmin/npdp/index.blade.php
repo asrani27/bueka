@@ -32,7 +32,9 @@
                 <tr>
                     <td class="text-center">{{$key + 1}}</td>
                     <td>{{$item->user == null ? '-': $item->user->name}}</td>
-                    <td>{{$item->nomor}}</td>
+                    <td>
+                      <a href="#" class="btn btn-sm btn-success" data-id="{{$item->id}}">isi nomor</a>
+                      {{$item->nomor}}</td>
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
@@ -45,7 +47,7 @@
                             onclick="return confirm('Yakin ingin di hapus');"
                             class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
                             <a href="/superadmin/pnpd/validasi/{{$item->id}}"
-                              onclick="return confirm('Yakin ingin di validasi');"
+                              onclick="return confirm('Yakin ingin di validasi, setelah di validasi data tidak bisa diubah/dihapus');"
                               class="btn btn-sm  btn-primary"><i class="fa fa-check"></i> validasi</a>
                      
                     </td>
