@@ -88,10 +88,18 @@ class NPDController extends Controller
     public function storePencairanRincian(Request $req, $id)
     {
         $find = NpdRincian::find($req->npd_rincian_id);
-        $find->pencairan = $req->pencairan_saat_ini;
-        $find->save();
+        if ($find->anggaran < (int)$req->pencairan_saat_ini) {
 
-        Session::flash('success', 'Berhasil disimpan');
-        return back();
+            Session::flash('info', 'Gagal disimpan, anggaran kurang/realisasi melebihi');
+            return back();
+        } else {
+            
+            $find->pencairan = $req->pencairan_saat_ini;
+            $find->save();
+
+            Session::flash('success', 'Berhasil disimpan');
+            return back();
+        }
+        //dd($find, $req->all());
     }
 }
