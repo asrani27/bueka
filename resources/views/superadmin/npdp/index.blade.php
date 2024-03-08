@@ -24,6 +24,7 @@
                   <th>Tanggal</th>
                   <th>Nomor DPA</th>
                   <th>Tahun Anggaran</th>
+                  <th>Jumlah Dana</th>
                   <th>Subkegiatan</th>
                   <th>Aksi</th>
                 </tr>
@@ -35,6 +36,7 @@
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td>{{number_format($item->jumlah_dana)}}</td>
                     <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->nama}}</td>
                     
                     <td>
@@ -42,6 +44,9 @@
                         <a href="/superadmin/pnpd/delete/{{$item->id}}"
                             onclick="return confirm('Yakin ingin di hapus');"
                             class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="/superadmin/pnpd/validasi/{{$item->id}}"
+                              onclick="return confirm('Yakin ingin di validasi');"
+                              class="btn btn-sm  btn-primary"><i class="fa fa-check"></i> validasi</a>
                      
                     </td>
                 </tr>
