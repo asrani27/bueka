@@ -19,7 +19,7 @@
     <li class="{{ (request()->is('superadmin/rincian*')) ? 'active' : '' }}"><a href="/superadmin/rincian"><i class="fa fa-arrow-right"></i> <span><i>Data Rincian</i></span></a></li>
     <li class="header">VERIFIKASI DATA</li>
     <li class="{{ (request()->is('superadmin/npd*')) ? 'active' : '' }}"><a href="/superadmin/npd"><i class="fa fa-file"></i> <span><i>NPD Anggaran</i></span></a></li>
-    <li class="{{ (request()->is('superadmin/npdp*')) ? 'active' : '' }}"><a href="/superadmin/npdp"><i class="fa fa-file"></i> <span><i>NPD Pencairan</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/pnpd*')) ? 'active' : '' }}"><a href="/superadmin/pnpd"><i class="fa fa-file"></i> <span><i>NPD Pencairan</i></span></a></li>
     {{-- <li class="{{ (request()->is('superadmin/tim*')) ? 'active' : '' }}"><a href="/superadmin/tim"><i class="fa fa-arrow-right"></i> <span><i>Tim</i></span></a></li>
     <li class="{{ (request()->is('superadmin/partner*')) ? 'active' : '' }}"><a href="/superadmin/partner"><i class="fa fa-arrow-right"></i> <span><i>Partner</i></span></a></li>
     <li class="{{ (request()->is('superadmin/hubungikami*')) ? 'active' : '' }}"><a href="/superadmin/hubungikami"><i class="fa fa-arrow-right"></i> <span><i>Hubungi Kami</i></span></a></li> --}}

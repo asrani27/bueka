@@ -41,12 +41,15 @@
                     <td>
                         <a href="/admin/npd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>
                         
+                        @if ($item->status == 0)
+                            
                         <a href="/admin/npd/delete/{{$item->id}}"
-                            onclick="return confirm('Yakin ingin di hapus');"
-                            class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
-                        <a href="/admin/npd/ajukan/{{$item->id}}"
-                              onclick="return confirm('Ketika sudah di ajukan, tidak bisa di hapus/edit, yakin?');"
-                              class="btn btn-sm  btn-danger"><i class="fa fa-send"></i> KIRIM</a>
+                          onclick="return confirm('Yakin ingin di hapus');"
+                          class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
+                      <a href="/admin/npd/ajukan/{{$item->id}}"
+                            onclick="return confirm('Ketika sudah di ajukan, tidak bisa di hapus/edit, yakin?');"
+                            class="btn btn-sm  btn-danger"><i class="fa fa-send"></i> KIRIM</a>
+                        @endif
                      
                     </td>
                 </tr>

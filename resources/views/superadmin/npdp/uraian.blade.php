@@ -25,7 +25,7 @@
                 <table width="100%" >
                   <tr>
                     <td style="text-align:center;" colspan="4"><b>NOTA PENCAIRAN DANA (NPD)</b><br/>
-                    NOMOR : 
+                    NOMOR : asd
                     </td>
                   </tr>
                   <tr>
@@ -47,19 +47,19 @@
                     <td>2</td>
                     <td>Program</td>
                     <td>:</td>
-                    <td>{{$data->program}}</td>
+                    <td>{{$data->program == null ? '': $data->program->kode. ' - ' .$data->program->nama}}</td>
                   </tr>
                   <tr>
                     <td>3</td>
                     <td>Kegiatan</td>
                     <td>:</td>
-                    <td>{{$data->kegiatan}}</td>
+                    <td>{{$data->kegiatan == null ? '': $data->kegiatan->kode. ' - ' .$data->kegiatan->nama}}</td>
                   </tr>
                   <tr>
                     <td>4</td>
                     <td>Subkegiatan</td>
                     <td>:</td>
-                    <td>{{$data->subkegiatan}}</td>
+                    <td>{{$data->subkegiatan == null ? '': $data->subkegiatan->kode. ' - ' .$data->subkegiatan->nama}}</td>
                   </tr>
                   <tr>
                     <td>5</td>
@@ -77,13 +77,13 @@
                     <td>7</td>
                     <td>Jumlah dana yang diminta </td>
                     <td>:</td>
-                    <td></td>
+                    <td>{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
                   </tr>
                   <tr>
                     <td>8</td>
                     <td>Terbilang</td>
                     <td>:</td>
-                    <td></td>
+                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini'))}}</td>
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align: center"><b>PEMBEBANAN PADA KODE REKENING :</b></td>
@@ -99,23 +99,41 @@
                     <td>Pencairan Saat Ini</td>
                     <td>Sisa</td>
                   </tr>
-                  @foreach ($data->detail as $key => $item)
-                      <tr>
+                  @foreach ($detail as $key => $item)
+                      <tr class="text-bold">
                         <td>{{$key + 1}}</td>
-                        <td>{{$item->kode_rekening}}</td>
-                        <td>{{$item->uraian}}</td>
-                        <td>{{number_format($item->anggaran)}}</td>
+                        <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
+                        <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
+                        <td class="text-right">{{number_format($item->anggaran)}}</td>
                         <td></td>
-                        <td>{{$item->pencairan}}</td>
-                        <td>{{number_format($item->anggaran - $item->pencairan)}}</td>
+                        <td style="text-align: right">{{number_format($item->pencairan_saat_ini)}}
+                        
+                        </td>
+                        <td class="text-right">{{number_format($item->sisa)}}</td>
                       </tr>
+                      @foreach ($item->rincian as $key2 => $item2)
+                          <tr>
+                            <td></td>
+                            <td>{{$item2->kode_rincian}}</td>
+                            <td>{{$item2->rincian->nama}}</td>
+                            <td class="text-right">{{number_format($item2->anggaran)}}</td>
+                            <td></td>
+                            <td class="text-right">
+                              
+                            {{number_format($item2->pencairan)}}
+                            </td>
+                            <td class="text-right">
+                              {{number_format($item2->anggaran - $item2->pencairan)}}
+                            </td>
+                          </tr>
+                      @endforeach
                   @endforeach
-                  <tr style="background-color: aquamarine">
+                  <tr style="background-color: aquamarine" class="text-bold">
                     <td colspan=3>TOTAL</td>
-                    <td>{{number_format($data->detail->sum('anggaran'))}}</td>
+                    <td class="text-right">{{number_format($data->detail->sum('anggaran'))}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="text-align: right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
+                    <td class="text-right">{{number_format($data->detail->sum('sisa'))}}</td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPN</td>
@@ -143,7 +161,7 @@
                   <tr>
                     <td colspan=4 style="text-align: center">Jumlah Yang Diminta</td>
                     <td>Rp., </td>
-                    <td></td>
+                    <td>{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
                     <td></td>
                   </tr>
                   <tr>
@@ -155,7 +173,7 @@
                   <tr>
                     <td colspan=4 style="text-align: center">Jumlah Yang Dibayarkan</td>
                     <td>Rp., </td>
-                    <td></td>
+                    <td>{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
                     <td></td>
                   </tr>
                   <tr>
@@ -188,54 +206,32 @@
           </div>
     </div>
    </div>
-    
-   <div class="modal fade" id="modal-tambah">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" action="/superadmin/npd/uraian/{{$data->id}}/add" enctype="multipart/form-data">
-                @csrf
-                
-                <div class="modal-header bg-primary">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Uraian</h4>
-                </div>
-  
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Kode Rek</label>
-                        <input type="text" class="form-control" name="kode_rekening" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Uraian</label>
-                        <input type="text" class="form-control" name="uraian" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Anggaran</label>
-                        <input type="text" class="form-control" name="anggaran" required>
-                    </div>
-                </div>
-  
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i>
-                        Kirim</button>
-                </div>
-            </form>
-        </div>
-    </div>
-  </div> 
+   
+   
 </section>
 
 
 @endsection
 @push('js')
-
+<script>
+  function hanyaAngka(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode > 31 && (charCode < 48 || charCode > 57))
+  
+      return false;
+    return true;
+  }
+</script>
 
 <script>
   $(document).on('click', '.tambahuraian', function() {
      $("#modal-tambah").modal();
   });
-  </script>
+
+  $(document).on('click', '.pencairan', function() {
+    $('#npd_rincian_id').val($(this).data('id'));
+     $("#modal-pencairan").modal();
+  });
+</script>
 @endpush
 

@@ -30,7 +30,7 @@
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$key + 1}}</td>
-                    <td>{{$item->user->name}}</td>
+                    <td>{{$item->user == null ? '-': $item->user->name}}</td>
                     <td>{{$item->nomor}}</td>
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
@@ -38,10 +38,10 @@
                     <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->nama}}</td>
                     
                     <td>
-                        <a href="/superadmin/npdp/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>
-                        {{-- <a href="/superadmin/npdp/delete/{{$item->id}}"
+                        <a href="/superadmin/pnpd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>
+                        <a href="/superadmin/pnpd/delete/{{$item->id}}"
                             onclick="return confirm('Yakin ingin di hapus');"
-                            class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a> --}}
+                            class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
                      
                     </td>
                 </tr>

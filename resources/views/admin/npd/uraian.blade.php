@@ -119,8 +119,10 @@
                             <td class="text-right">{{number_format($item2->anggaran)}}</td>
                             <td></td>
                             <td class="text-right">
-                              
+                              @if ($data->status == 0)
+                                  
                             <button type="button" class="btn btn-primary btn-xs pencairan " data-id="{{$item2->id}}"><i class="fa fa-plus"></i></button>
+                              @endif
                             {{number_format($item2->pencairan)}}
                             </td>
                             <td class="text-right">
