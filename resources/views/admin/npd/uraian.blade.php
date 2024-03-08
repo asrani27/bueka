@@ -261,7 +261,7 @@
                     <div class="form-group">
                         <label>Pencairan</label>
                         <input type="text" class="form-control" name="pencairan_saat_ini" placeholder="1000000" required onkeypress="return hanyaAngka(event)"/>
-                        <input type="text" class="form-control" name="npd_rincian_id" id="npd_rincian_id"/>
+                        <input type="hidden" class="form-control" name="npd_rincian_id" id="npd_rincian_id"/>
                     </div>
                 </div>
   
