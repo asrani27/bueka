@@ -34,7 +34,7 @@
                     <td>{{$item->created_at}}</td>
                     <td>{{$item->nomor}}</td>
                     <td>{{$item->nomor_dpa}}</td>
-                    <td>0</td>
+                    <td>{{number_format($item->jumlah_dana)}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
                     <td>{{$item->subkegiatan->nama}}</td>
                     

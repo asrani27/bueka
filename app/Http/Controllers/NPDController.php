@@ -14,6 +14,15 @@ class NPDController extends Controller
     public function index()
     {
         $data = NPD::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate(20);
+        $data->getCollection()->transform(function ($item) {
+            $item->jumlah_dana = $item->detail->map(function ($item2) {
+                $item2->pencairan_saat_ini = $item2->rincian->sum('pencairan');
+                return $item2;
+            })->sum('pencairan_saat_ini');
+            return $item;
+        });
+
+
         return view('admin.npd.index', compact('data'));
     }
     public function edit($id)
@@ -93,13 +102,20 @@ class NPDController extends Controller
             Session::flash('info', 'Gagal disimpan, anggaran kurang/realisasi melebihi');
             return back();
         } else {
-            
+
             $find->pencairan = $req->pencairan_saat_ini;
             $find->save();
 
             Session::flash('success', 'Berhasil disimpan');
             return back();
         }
-        //dd($find, $req->all());
+    }
+    public function kirim($id)
+    {
+        NPD::find($id)->update([
+            'status' => 1,
+        ]);
+        Session::flash('success', 'Berhasil dikirim');
+        return back();
     }
 }

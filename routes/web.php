@@ -114,4 +114,5 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('admin/npd/create', [NPDController::class, 'create']);
     Route::post('admin/npd/create', [NPDController::class, 'store']);
     Route::post('admin/gp', [GantiPasswordController::class, 'update']);
+    Route::get('admin/npd/ajukan/{id}', [NPDController::class, 'kirim']);
 });
