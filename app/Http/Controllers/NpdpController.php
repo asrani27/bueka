@@ -31,7 +31,7 @@ class NpdpController extends Controller
         });
         return view('superadmin.npdp.uraian', compact('data', 'detail'));
     }
-    public function validaso($id)
+    public function validasi($id)
     {
         NPD::find($id)->update(['validasi' => 1]);
         Session::flash('success', 'Berhasil di validasi');

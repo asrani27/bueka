@@ -43,12 +43,15 @@
                     
                     <td>
                         <a href="/superadmin/pnpd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i class="fa fa-money"></i> URAIAN</a>
+                        @if ($item->validasi == 0)
+                            
                         <a href="/superadmin/pnpd/delete/{{$item->id}}"
-                            onclick="return confirm('Yakin ingin di hapus');"
-                            class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
-                            <a href="/superadmin/pnpd/validasi/{{$item->id}}"
-                              onclick="return confirm('Yakin ingin di validasi, setelah di validasi data tidak bisa diubah/dihapus');"
-                              class="btn btn-sm  btn-primary"><i class="fa fa-check"></i> validasi</a>
+                          onclick="return confirm('Yakin ingin di hapus');"
+                          class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
+                          <a href="/superadmin/pnpd/validasi/{{$item->id}}"
+                            onclick="return confirm('Yakin ingin di validasi, setelah di validasi data tidak bisa diubah/dihapus');"
+                            class="btn btn-sm  btn-primary"><i class="fa fa-check"></i> validasi</a>
+                        @endif
                      
                     </td>
                 </tr>

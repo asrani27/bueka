@@ -109,6 +109,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('admin/gp', [GantiPasswordController::class, 'index']);
     Route::get('admin/npd', [NPDController::class, 'index']);
     Route::get('admin/npd/uraian/{id}', [NPDController::class, 'uraian']);
+    Route::post('admin/npd/uraian/{id}/ppn', [NPDController::class, 'ppn']);
+    Route::post('admin/npd/uraian/{id}/pph21', [NPDController::class, 'pph21']);
+    Route::post('admin/npd/uraian/{id}/pph22', [NPDController::class, 'pph22']);
+    Route::post('admin/npd/uraian/{id}/pph23', [NPDController::class, 'pph23']);
+    Route::post('admin/npd/uraian/{id}/pph4', [NPDController::class, 'pph4']);
     Route::post('admin/npd/uraian/{id}/pencairan', [NPDController::class, 'storePencairan']);
     Route::post('admin/npd/uraian/{id}/pencairanrincian', [NPDController::class, 'storePencairanRincian']);
     Route::get('admin/npd/delete/{id}', [NPDController::class, 'delete']);

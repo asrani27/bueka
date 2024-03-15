@@ -32,13 +32,18 @@ class NPDController extends Controller
     }
     public function uraian($id)
     {
-        $data = NPD::find($id);
+
+        $data = NPD::where('id', $id)->get()->map(function ($item) {
+
+            $item->potongan = $item->ppn + $item->pph21 + $item->pph22 + $item->pph23 + $item->pph4;
+            return $item;
+        })->first();
+
         $detail = $data->detail->map(function ($item) {
             $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
             $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
             return $item;
         });
-
         return view('admin.npd.uraian', compact('data', 'detail'));
     }
     public function create()
@@ -116,6 +121,53 @@ class NPDController extends Controller
             'status' => 1,
         ]);
         Session::flash('success', 'Berhasil dikirim');
+        return back();
+    }
+
+
+    public function ppn(Request $req, $id)
+    {
+        $data = NPD::find($id);
+        $data->update([
+            'ppn' => $req->ppn,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
+        return back();
+    }
+    public function pph21(Request $req, $id)
+    {
+        $data = NPD::find($id);
+        $data->update([
+            'pph21' => $req->pph21,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
+        return back();
+    }
+    public function pph22(Request $req, $id)
+    {
+        $data = NPD::find($id);
+        $data->update([
+            'pph22' => $req->pph22,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
+        return back();
+    }
+    public function pph23(Request $req, $id)
+    {
+        $data = NPD::find($id);
+        $data->update([
+            'pph23' => $req->pph23,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
+        return back();
+    }
+    public function pph4(Request $req, $id)
+    {
+        $data = NPD::find($id);
+        $data->update([
+            'pph4' => $req->pph4,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
         return back();
     }
 }
