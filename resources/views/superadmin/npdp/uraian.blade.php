@@ -83,7 +83,7 @@
                     <td>8</td>
                     <td>Terbilang</td>
                     <td>:</td>
-                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini'))}}</td>
+                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini') - $data->potongan)}} Rupiah</td>
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align: center"><b>PEMBEBANAN PADA KODE REKENING :</b></td>
@@ -137,49 +137,59 @@
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPN</td>
-                    <td></td>
+                    <td class="text-right">
+                      {{number_format($data->ppn)}}
+                    </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 21</td>
-                    <td></td>
+                    <td class="text-right">
+                      {{number_format($data->pph21)}}
+                    </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 22</td>
-                    <td></td>
+                    <td class="text-right">
+                      {{number_format($data->pph22)}}
+                    </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 23</td>
-                    <td></td>
+                    <td class="text-right">
+                      {{number_format($data->pph23)}}
+                    </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh pasal 4 (2)</td>
-                    <td></td>
+                    <td class="text-right">
+                      {{number_format($data->pph4)}}
+                    </td>
                   </tr>
                   <tr>
                     <td colspan=7></td>
                   </tr>
                   <tr>
                     <td colspan=4 style="text-align: center">Jumlah Yang Diminta</td>
-                    <td>Rp., </td>
-                    <td>{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
+                    <td class="text-right">Rp., </td>
+                    <td class="text-right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td colspan=4 style="text-align: center">Potongan</td>
-                    <td>Rp., </td>
-                    <td></td>
+                    <td class="text-right">Rp., </td>
+                    <td class="text-right">{{number_format($data->potongan)}}</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td colspan=4 style="text-align: center">Jumlah Yang Dibayarkan</td>
-                    <td>Rp., </td>
-                    <td>{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
+                    <td class="text-right">Rp., </td>
+                    <td class="text-right">{{number_format($data->detail->sum('pencairan_saat_ini') - $data->potongan)}}</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td colspan=4 style="text-align: center">Terbilang</td>
                     <td></td>
-                    <td></td>
+                    <td class="text-right">{{terbilang($data->detail->sum('pencairan_saat_ini') - $data->potongan)}} Rupiah</td>
                     <td></td>
                   </tr>
                 </table>

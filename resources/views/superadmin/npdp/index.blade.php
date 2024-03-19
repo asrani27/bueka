@@ -33,8 +33,14 @@
                     <td class="text-center">{{$key + 1}}</td>
                     <td>{{$item->user == null ? '-': $item->user->name}}</td>
                     <td>
-                      <a href="#" class="btn btn-sm btn-success" data-id="{{$item->id}}">isi nomor</a>
-                      {{$item->nomor}}</td>
+                      @if ($item->nomor == null)
+                          
+                      <a href="#" class="btn btn-sm btn-success isinomor" data-id="{{$item->id}}">isi nomor</a>
+                      {{$item->nomor}}
+                      @else
+                      <a href="#" class="btn btn-sm btn-success isinomor" data-id="{{$item->id}}">{{$item->nomor}}</a>
+                      @endif
+                    </td>
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
@@ -68,13 +74,41 @@
 </section>
 
 <!-- /.modal -->
- 
+<div class="modal fade" id="modal-tambah">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form method="post" action="/superadmin/pnpd/isinomor" enctype="multipart/form-data">
+              @csrf
+              
+              <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Isi Nomor</h4>
+              </div>
+
+              <div class="modal-body">
+                  <div class="form-group">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="nomor" name="nomor" required>
+                      <input type="hidden" class="form-control" id="npd_id" name="npd_id" readonly>
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-success btn-block" name="button" value="tolak"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
 @endsection
 @push('js')
 
-{{-- <script>
-  $(document).on('click', '.tambah-bibit', function() {
-    $('#pengajuan_id').val($(this).data('id'));
+<script>
+  $(document).on('click', '.isinomor', function() {
+    $('#npd_id').val($(this).data('id'));
      $("#modal-tambah").modal();
   });
   </script>
@@ -86,7 +120,7 @@
 		    return false;
 		  return true;
 		}
-	</script> --}}
+	</script>
   
 @endpush
 

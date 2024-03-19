@@ -34,7 +34,6 @@ class NPDController extends Controller
     {
 
         $data = NPD::where('id', $id)->get()->map(function ($item) {
-
             $item->potongan = $item->ppn + $item->pph21 + $item->pph22 + $item->pph23 + $item->pph4;
             return $item;
         })->first();

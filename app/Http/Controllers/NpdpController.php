@@ -23,7 +23,11 @@ class NpdpController extends Controller
     }
     public function uraian($id)
     {
-        $data = NPD::find($id);
+        $data = NPD::where('id', $id)->get()->map(function ($item) {
+            $item->potongan = $item->ppn + $item->pph21 + $item->pph22 + $item->pph23 + $item->pph4;
+            return $item;
+        })->first();
+
         $detail = $data->detail->map(function ($item) {
             $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
             $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
@@ -34,6 +38,12 @@ class NpdpController extends Controller
     public function validasi($id)
     {
         NPD::find($id)->update(['validasi' => 1]);
+        Session::flash('success', 'Berhasil di validasi');
+        return back();
+    }
+    public function isinomor(Request $req)
+    {
+        NPD::find($req->npd_id)->update(['nomor' => $req->nomor]);
         Session::flash('success', 'Berhasil di validasi');
         return back();
     }
