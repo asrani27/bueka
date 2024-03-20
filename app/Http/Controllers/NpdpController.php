@@ -28,17 +28,77 @@ class NpdpController extends Controller
             return $item;
         })->first();
 
-        $detail = $data->detail->map(function ($item) {
-            $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-            $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
+        $detail = $data->detail->map(function ($item) use ($data) {
+            if ($item->npd->urut == 1) {
+                $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
+                $item->akumulasi = 0;
+                $item->rincian = $item->rincian->map(function ($item2) {
+                    $item2->akumulasi_rincian = 0;
+                    return $item2;
+                });
+            } else {
+                if ($item->npd->urut == null) {
+
+                    $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $data->kode_subkegiatan)->where('urut', '!=', null)->get();
+                    $akumulasi->map(function ($item) {
+                        $item->akumulasi = $item->detail->map(function ($item2) {
+                            $item2->akumulasi = $item2->rincian->sum('pencairan');
+                            return $item2;
+                        });
+                        return $item;
+                    });
+
+                    $da = $akumulasi->map(function ($item) {
+                        return $item->akumulasi;
+                    })->flatten();
+
+                    $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
+                    $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                } else {
+                    $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
+                    $akumulasi->map(function ($item) {
+                        $item->akumulasi = $item->detail->map(function ($item2) {
+                            $item2->akumulasi = $item2->rincian->sum('pencairan');
+                            return $item2;
+                        });
+                        return $item;
+                    });
+
+                    $da = $akumulasi->map(function ($item) {
+                        return $item->akumulasi;
+                    })->flatten();
+
+                    $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
+                    $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                }
+                //dd($item, $akumulasi);
+            }
             return $item;
         });
+
+        // $detail2 = [];
+        // foreach ($detail->toArray() as $key => $item) {
+        //     foreach ($item['rincian'] as $key2 => $rincian) {
+        //         $rincian['akumulasi_rincian'] = 23443;
+        //     }
+        // }
+        //dd($detail->toArray());
+        //dd($detail, $data);
         return view('superadmin.npdp.uraian', compact('data', 'detail'));
     }
     public function validasi($id)
     {
-        NPD::find($id)->update(['validasi' => 1]);
-        Session::flash('success', 'Berhasil di validasi');
+        $data = NPD::where('jenis', 'pencairan')->max('urut');
+        if ($data == null) {
+            NPD::find($id)->update(['validasi' => 1, 'urut' => 1]);
+            Session::flash('success', 'Berhasil di validasi');
+        } else {
+            NPD::find($id)->update(['validasi' => 1, 'urut' => $data + 1]);
+            Session::flash('success', 'Berhasil di validasi');
+        }
         return back();
     }
     public function isinomor(Request $req)

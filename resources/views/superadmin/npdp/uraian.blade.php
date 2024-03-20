@@ -83,7 +83,7 @@
                     <td>8</td>
                     <td>Terbilang</td>
                     <td>:</td>
-                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini') - $data->potongan)}} Rupiah</td>
+                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini'))}} Rupiah</td>
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align: center"><b>PEMBEBANAN PADA KODE REKENING :</b></td>
@@ -105,7 +105,7 @@
                         <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td class="text-right">{{number_format($item->anggaran)}}</td>
-                        <td></td>
+                        <td class="text-right">{{number_format($item->akumulasi)}}</td>
                         <td style="text-align: right">{{number_format($item->pencairan_saat_ini)}}
                         
                         </td>
@@ -117,7 +117,7 @@
                             <td>{{$item2->kode_rincian}}</td>
                             <td>{{$item2->rincian->nama}}</td>
                             <td class="text-right">{{number_format($item2->anggaran)}}</td>
-                            <td></td>
+                            <td class="text-right">{{number_format($item2->akumulasi_rincian)}}</td>
                             <td class="text-right">
                               
                             {{number_format($item2->pencairan)}}
