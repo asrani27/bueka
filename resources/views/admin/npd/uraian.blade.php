@@ -25,7 +25,7 @@
                 <table width="100%" >
                   <tr>
                     <td style="text-align:center;" colspan="4"><b>NOTA PENCAIRAN DANA (NPD)</b><br/>
-                    NOMOR : 
+                    NOMOR : {{$data->nomor}}
                     </td>
                   </tr>
                   <tr>
