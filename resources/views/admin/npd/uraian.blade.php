@@ -83,7 +83,7 @@
                     <td>8</td>
                     <td>Terbilang</td>
                     <td>:</td>
-                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini') - $data->potongan)}} Rupiah</td>
+                    <td>{{terbilang($data->detail->sum('pencairan_saat_ini'))}} Rupiah</td>
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align: center"><b>PEMBEBANAN PADA KODE REKENING :</b></td>
@@ -141,35 +141,46 @@
                   <tr>
                     <td colspan=6 style="text-align: center">PPN</td>
                     <td class="text-right">
+
+                      @if ($data->status == 0)
                       <button type="button" class="btn btn-primary btn-xs ppn"><i class="fa fa-plus"></i></button>
+                      @endif
                       {{number_format($data->ppn)}}
                     </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 21</td>
                     <td class="text-right">
+                      @if ($data->status == 0)
                       <button type="button" class="btn btn-primary btn-xs pph21"><i class="fa fa-plus"></i></button>
+                      @endif
                       {{number_format($data->pph21)}}
                     </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 22</td>
                     <td class="text-right">
+                      @if ($data->status == 0)
                       <button type="button" class="btn btn-primary btn-xs pph22"><i class="fa fa-plus"></i></button>
+                      @endif
                       {{number_format($data->pph22)}}
                     </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh 23</td>
                     <td class="text-right">
+                      @if ($data->status == 0)
                       <button type="button" class="btn btn-primary btn-xs pph23"><i class="fa fa-plus"></i></button>
+                      @endif
                       {{number_format($data->pph23)}}
                     </td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPh pasal 4 (2)</td>
                     <td class="text-right">
+                      @if ($data->status == 0)
                       <button type="button" class="btn btn-primary btn-xs pph4"><i class="fa fa-plus"></i></button>
+                      @endif
                       {{number_format($data->pph4)}}
                     </td>
                   </tr>

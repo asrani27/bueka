@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\NPD;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 
 class NpdpController extends Controller
@@ -112,5 +114,66 @@ class NpdpController extends Controller
         NPD::find($id)->delete();
         Session::flash('success', 'Berhasil dihapus');
         return back();
+    }
+    public function pdf($id)
+    {
+        $data = NPD::where('id', $id)->get()->map(function ($item) {
+            $item->potongan = $item->ppn + $item->pph21 + $item->pph22 + $item->pph23 + $item->pph4;
+            return $item;
+        })->first();
+
+        $detail = $data->detail->map(function ($item) use ($data) {
+            if ($item->npd->urut == 1) {
+                $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
+                $item->akumulasi = 0;
+                $item->rincian = $item->rincian->map(function ($item2) {
+                    $item2->akumulasi_rincian = 0;
+                    return $item2;
+                });
+            } else {
+                if ($item->npd->urut == null) {
+
+                    $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $data->kode_subkegiatan)->where('urut', '!=', null)->get();
+                    $akumulasi->map(function ($item) {
+                        $item->akumulasi = $item->detail->map(function ($item2) {
+                            $item2->akumulasi = $item2->rincian->sum('pencairan');
+                            return $item2;
+                        });
+                        return $item;
+                    });
+
+                    $da = $akumulasi->map(function ($item) {
+                        return $item->akumulasi;
+                    })->flatten();
+
+                    $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
+                    $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                } else {
+                    $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
+                    $akumulasi->map(function ($item) {
+                        $item->akumulasi = $item->detail->map(function ($item2) {
+                            $item2->akumulasi = $item2->rincian->sum('pencairan');
+                            return $item2;
+                        });
+                        return $item;
+                    });
+
+                    $da = $akumulasi->map(function ($item) {
+                        return $item->akumulasi;
+                    })->flatten();
+
+                    $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
+                    $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                }
+                //dd($item, $akumulasi);
+            }
+            return $item;
+        });
+        $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd', compact('data', 'detail'));
+        $filename = $data->user->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
+        return $pdf->download($filename);
     }
 }

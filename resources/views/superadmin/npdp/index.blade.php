@@ -57,6 +57,8 @@
                           <a href="/superadmin/pnpd/validasi/{{$item->id}}"
                             onclick="return confirm('Yakin ingin di validasi, setelah di validasi data tidak bisa diubah/dihapus');"
                             class="btn btn-sm  btn-primary"><i class="fa fa-check"></i> validasi</a>
+                        @else
+                        <a href="/superadmin/pnpd/pdf/{{$item->id}}" class="btn btn-sm  btn-danger"><i class="fa fa-file"></i> PDF</a>
                         @endif
                      
                     </td>

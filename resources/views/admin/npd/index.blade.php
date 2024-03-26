@@ -20,6 +20,7 @@
                 <tbody>
                 <tr>
                   <th class="text-center">No</th>
+                  <th>Admin</th>
                   <th>Tanggal</th>
                   <th>Nomor NPD</th>
                   <th>Nomor DPA</th>
@@ -31,6 +32,7 @@
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$key + 1}}</td>
+                    <td>{{$item->user->name}}</td>
                     <td>{{$item->created_at}}</td>
                     <td>{{$item->nomor}}</td>
                     <td>{{$item->nomor_dpa}}</td>
@@ -46,9 +48,15 @@
                         <a href="/admin/npd/delete/{{$item->id}}"
                           onclick="return confirm('Yakin ingin di hapus');"
                           class="btn btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
-                      <a href="/admin/npd/ajukan/{{$item->id}}"
+                        <a href="/admin/npd/ajukan/{{$item->id}}"
                             onclick="return confirm('Ketika sudah di ajukan, tidak bisa di hapus/edit, yakin?');"
                             class="btn btn-sm  btn-danger"><i class="fa fa-send"></i> KIRIM</a>
+                        @else
+
+                        @if (Auth::user()->id == $item->user_id)  
+                        <a href="/admin/npd/pdf/{{$item->id}}" class="btn btn-sm  btn-danger"><i class="fa fa-file"></i> PDF</a>
+                        @endif
+
                         @endif
                      
                     </td>
