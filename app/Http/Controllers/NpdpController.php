@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\NPD;
+use App\Models\NpdDetail;
+use App\Models\NpdRincian;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
@@ -75,20 +77,24 @@ class NpdpController extends Controller
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    $noUrut = $item->npd->urut;
+                    $item->rincian = $item->rincian->map(function ($item2) use ($noUrut) {
+                        $d = NPD::where('urut', '<', $noUrut)->get();
+                        $npd_detail_id = $d->map(function ($item3) {
+                            return $item3->detail->pluck('id');
+                        })->flatten()->toArray();
+
+                        $npd_rincian = NpdRincian::whereIn('npd_detail_id', $npd_detail_id)->get();
+
+                        $item2->akumulasi_rincian = $npd_rincian->where('kode_rincian', $item2->kode_rincian)->sum('pencairan');
+                        return $item2;
+                    });
                 }
                 //dd($item, $akumulasi);
             }
             return $item;
         });
 
-        // $detail2 = [];
-        // foreach ($detail->toArray() as $key => $item) {
-        //     foreach ($item['rincian'] as $key2 => $rincian) {
-        //         $rincian['akumulasi_rincian'] = 23443;
-        //     }
-        // }
-        //dd($detail->toArray());
-        //dd($detail, $data);
         return view('superadmin.npdp.uraian', compact('data', 'detail'));
     }
     public function validasi($id)
