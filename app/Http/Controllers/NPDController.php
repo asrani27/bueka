@@ -300,6 +300,6 @@ class NPDController extends Controller
         });
         $pdf  = Pdf::loadView('admin.npd.pdf_npd', compact('data', 'detail'));
         $filename = Auth::user()->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
-        return $pdf->download($filename);
+        return $pdf->stream($filename);
     }
 }

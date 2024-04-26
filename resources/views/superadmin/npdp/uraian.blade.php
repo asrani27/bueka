@@ -123,7 +123,7 @@
                             {{number_format($item2->pencairan)}}
                             </td>
                             <td class="text-right">
-                              {{number_format($item2->anggaran - $item2->pencairan)}}
+                              {{number_format($item2->anggaran - $item2->pencairan - $item2->akumulasi_rincian)}}
                             </td>
                           </tr>
                       @endforeach

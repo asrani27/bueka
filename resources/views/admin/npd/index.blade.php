@@ -54,7 +54,7 @@
                         @else
 
                         @if (Auth::user()->id == $item->user_id)  
-                        <a href="/admin/npd/pdf/{{$item->id}}" class="btn btn-sm  btn-danger"><i class="fa fa-file"></i> PDF</a>
+                        <a href="/admin/npd/pdf/{{$item->id}}" class="btn btn-sm  btn-danger" target="_blank"><i class="fa fa-file"></i> PDF</a>
                         @endif
 
                         @endif
