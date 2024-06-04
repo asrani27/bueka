@@ -60,6 +60,17 @@ class NpdpController extends Controller
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    $item->rincian = $item->rincian->map(function ($item2) {
+                        $d = NPD::where('urut', '!=', null)->get();
+                        $npd_detail_id = $d->map(function ($item3) {
+                            return $item3->detail->pluck('id');
+                        })->flatten()->toArray();
+
+                        $npd_rincian = NpdRincian::whereIn('npd_detail_id', $npd_detail_id)->get();
+
+                        $item2->akumulasi_rincian = $npd_rincian->where('kode_rincian', $item2->kode_rincian)->sum('pencairan');
+                        return $item2;
+                    });
                 } else {
                     $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
                     $akumulasi->map(function ($item) {
