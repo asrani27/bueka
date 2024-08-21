@@ -17,7 +17,9 @@ use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
 use App\Http\Controllers\RekeningController;
+use App\Http\Controllers\VideoController;
 
+Route::get('video', [VideoController::class, 'index']);
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 

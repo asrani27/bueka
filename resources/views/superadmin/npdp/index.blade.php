@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @push('css')
+<!-- DataTables -->
+<link rel="stylesheet" href="/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     
 @endpush
 @section('content')
@@ -8,15 +10,15 @@
         <div class="col-xs-12">
           <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title"><i class="fa fa-clipboard"></i> Data NPD</h3>
+              <h3 class="box-title"><i class="fa fa-clipboard"></i> Data NPD.</h3>
     
               <div class="box-tools">
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tbody>
+            <div class="box-body table-responsive">
+              <table id="example1" class="table table-hover table-bordered">
+                <thead>
                 <tr>
                   <th class="text-center">No</th>
                   <th>Admin</th>
@@ -28,6 +30,8 @@
                   <th>Subkegiatan</th>
                   <th>Aksi</th>
                 </tr>
+                </thead>
+                <tbody>
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$key + 1}}</td>
@@ -124,5 +128,21 @@
 		}
 	</script>
   
+<!-- DataTables -->
+<script src="/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
 @endpush
 

@@ -13,6 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/assets/bower_components/Ionicons/css/ionicons.min.css">
+  @stack('css')
   <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
 
@@ -23,7 +24,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- IziToast -->
 <link rel="stylesheet" href="/notif/dist/css/iziToast.min.css">
 <script src="/notif/dist/js/iziToast.min.js" type="text/javascript"></script>
-@stack('css')
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini">
@@ -160,10 +160,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- jQuery 3 -->
 <script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+@stack('js')
 <script src="/assets/dist/js/adminlte.min.js"></script>
 <script>
 @include('layouts.notif')
 </script>
-@stack('js')
 </body>
 </html>

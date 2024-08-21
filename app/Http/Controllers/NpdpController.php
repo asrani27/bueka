@@ -14,8 +14,8 @@ class NpdpController extends Controller
 {
     public function index()
     {
-        $data = NPD::where('jenis', 'pencairan')->where('status', 1)->orderBy('id', 'DESC')->paginate(20);
-        $data->getCollection()->transform(function ($item) {
+        $data = NPD::where('jenis', 'pencairan')->where('status', 1)->orderBy('id', 'DESC')->get();
+        $data->transform(function ($item) {
             $item->jumlah_dana = $item->detail->map(function ($item2) {
                 $item2->pencairan_saat_ini = $item2->rincian->sum('pencairan');
                 return $item2;
