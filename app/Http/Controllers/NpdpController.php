@@ -120,6 +120,12 @@ class NpdpController extends Controller
         }
         return back();
     }
+    public function batalvalidasi($id)
+    {
+        NPD::find($id)->update(['validasi' => 0, 'urut' => null]);
+        Session::flash('success', 'Di batalkan');
+        return back();
+    }
     public function isinomor(Request $req)
     {
         NPD::find($req->npd_id)->update(['nomor' => $req->nomor]);
