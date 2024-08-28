@@ -18,7 +18,13 @@ class SuperadminController extends Controller
 {
     public function npd()
     {
-        $data = NPD::where('jenis', 'anggaran')->orderBy('id', 'DESC')->paginate(20);
+        $data = NPD::where('jenis', 'anggaran')->orderBy('id', 'DESC')->get();
+        //dd($data);
+        $data->transform(function ($item) {
+            $item->dpa = $item->detail->sum('anggaran');
+            return $item;
+        });
+
         return view('superadmin.npd.index', compact('data'));
     }
     public function editNpd($id)

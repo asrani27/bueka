@@ -23,6 +23,7 @@
                   <th>Tanggal</th>
                   <th>Nomor DPA</th>
                   <th>Tahun Anggaran</th>
+                  <th>Nilai DPA</th>
                   <th>Subkegiatan</th>
                   <th>Aksi</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{\carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s')}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td class="text-right"><strong>{{number_format($item->dpa)}}</strong></td>
                     <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->kode.' - '.$item->subkegiatan->nama}}</td>
                     
                     <td>
@@ -46,6 +48,17 @@
                 @endforeach
                 
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>TOTAL</td>
+                    <td class="text-right"><strong>{{number_format($data->sum('dpa'))}}</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
