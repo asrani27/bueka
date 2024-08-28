@@ -132,6 +132,12 @@ class NpdpController extends Controller
         Session::flash('success', 'Berhasil di validasi');
         return back();
     }
+    public function ubahtanggal(Request $req)
+    {
+        NPD::find($req->npd_id)->update(['tanggal' => $req->tanggal]);
+        Session::flash('success', 'Berhasil di update');
+        return back();
+    }
     public function delete($id)
     {
         NPD::find($id)->delete();

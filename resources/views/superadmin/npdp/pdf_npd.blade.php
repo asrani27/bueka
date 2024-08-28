@@ -179,7 +179,7 @@
     <table width="100%" style="font-family:Verdana, Geneva, Tahoma, sans-serif;font-size:11px">
         <tr style="text-align: center">
         <td></td>
-        <td>Banjarmasin, {{\Carbon\Carbon::now()->translatedFormat('F Y')}}</td>
+        <td>Banjarmasin, {{\Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y')}}</td>
         </tr>
         <tr style="text-align: center">
         <td>Menyetujui, <br/>Kuasa Pengguna Anggaran
