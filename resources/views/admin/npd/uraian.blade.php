@@ -207,7 +207,6 @@
                   </tr>
                   <tr>
                     <td colspan=4 style="text-align: center">Terbilang</td>
-                    
                     <td colspan=2>{{terbilang($data->detail->sum('pencairan_saat_ini') - $data->potongan)}} Rupiah</td>
                     <td></td>
                   </tr>
