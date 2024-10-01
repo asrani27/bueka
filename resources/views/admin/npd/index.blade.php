@@ -33,7 +33,7 @@
                 <tr>
                     <td class="text-center">{{$key + 1}}</td>
                     <td>{{$item->user->name}}</td>
-                    <td>{{$item->created_at}}</td>
+                    <td>{{\Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</td>
                     <td>{{$item->nomor}}</td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{number_format($item->jumlah_dana)}}</td>

@@ -130,6 +130,7 @@ class NPDController extends Controller
         $param = $npd->toArray();
         $param['user_id'] = Auth::user()->id;
         $param['jenis'] = 'pencairan';
+        $param['tanggal'] = Carbon::now()->format('Y-m-d');
 
         $n = NPD::create($param);
 
