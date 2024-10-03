@@ -16,6 +16,7 @@ use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\GantiPasswordController;
+use App\Http\Controllers\PerubahanController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\VideoController;
 
@@ -92,6 +93,11 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin/npd/uraian/{id}/rekening/{id_rekening}', [SuperadminController::class, 'deleteUraian']);
     Route::post('superadmin/addrincian', [SuperadminController::class, 'storeRincian']);
     Route::get('superadmin/deleterincian/{id}', [SuperadminController::class, 'deleteRincian']);
+
+    Route::get('superadmin/perubahan', [PerubahanController::class, 'perubahan']);
+    Route::get('superadmin/perubahan/uraian/{id}', [PerubahanController::class, 'uraian']);
+    Route::get('superadmin/perubahan/uraian/{id}/salinanggaran', [PerubahanController::class, 'salinAnggaran']);
+
 
     Route::get('superadmin/pnpd', [NpdpController::class, 'index']);
     Route::post('superadmin/pnpd/ubahtanggal', [NpdpController::class, 'ubahtanggal']);
