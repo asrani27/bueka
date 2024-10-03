@@ -104,7 +104,7 @@
                     <td>Anggaran Sesudah <a href="/superadmin/perubahan/uraian/{{$data->id}}/salinanggaran" class="btn btn-xs btn-primary" onclick="return confirm('Apakah anda yakin untuk menyalin dari anggaran sebelumnya?');">Salin Anggaran</a></td>
                     <td>Berkurang/Bertambah</td>
                   </tr>
-                  @foreach ($data->detail as $key => $item)
+                  @foreach ($detail as $key => $item)
                       <tr class="text-bold">
                         <td>
                         
@@ -119,7 +119,7 @@
                           {{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td class="text-right">{{number_format($item->anggaran)}}</td>
                         <td class="text-right">{{number_format($item->anggaran_perubahan)}}</td>
-                        <td>{{number_format($item->anggaran_perubahan - $item->anggaran)}}</td>
+                        <td class="text-right">{{number_format($item->anggaran_perubahan - $item->anggaran)}}</td>
                       </tr>
                       @foreach ($item->rincian as $item2)
                           <tr>
@@ -130,18 +130,18 @@
                               {{-- <a href="/superadmin/deleterincian/{{$item2->id}}" onclick="return confirm('Yakin ingin menghapus rincian');"><i class="fa fa-trash text-danger"></i> </a> --}}
                               {{$item2->rincian == null ? '' : $item2->rincian->nama}}</td>
                             <td class="text-right">{{number_format($item2->anggaran)}}</td>
-                            <td class="text-right">{{number_format($item2->anggaran_perubahan)}}</td>
+                            <td class="text-right"><a href="#" data-rincian_id="{{$item2->id}}" data-anggaran="{{$item2->anggaran}}" data-anggaran_perubahan="{{$item2->anggaran_perubahan}}" class="perubahananggaran"><i class="fa fa-edit text-success"></i> </a>{{number_format($item2->anggaran_perubahan)}}</td>
                             <td class="text-right">{{number_format($item2->anggaran_perubahan - $item2->anggaran)}}</td>
                           </tr>
                       @endforeach
                   @endforeach
                   <tr style="background-color: aquamarine">
                     <td colspan=3>TOTAL</td>
-                    <td class="text-right text-bold">{{number_format($data->detail->sum('anggaran'))}}</td>
-                    <td class="text-right text-bold">{{number_format($data->detail->sum('anggaran_perubahan'))}}</td>
-                    <td></td>
+                    <td class="text-right text-bold">{{number_format($detail->sum('anggaran'))}}</td>
+                    <td class="text-right text-bold">{{number_format($detail->sum('anggaran_perubahan'))}}</td>
+                    <td class="text-right text-bold">{{number_format($detail->sum('anggaran_perubahan')-$detail->sum('anggaran'))}}</td>
                   </tr>
-                  <tr>
+                  {{-- <tr>
                     <td colspan=5 style="text-align: center">PPN</td>
                     <td></td>
                   </tr>
@@ -183,7 +183,7 @@
                     <td colspan=4 style="text-align: center">Terbilang</td>
                     <td></td>
                     <td></td>
-                  </tr>
+                  </tr> --}}
                 </table>
                 <table width="100%">
                   <tr style="text-align: center">
@@ -246,32 +246,27 @@
         </div>
     </div>
   </div> 
-  <div class="modal fade" id="modal-rincian">
+  <div class="modal fade" id="modal-perubahan">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="/superadmin/addrincian" enctype="multipart/form-data">
+            <form method="post" action="/superadmin/perubahan/anggaran" enctype="multipart/form-data">
                 @csrf
                 
                 <div class="modal-header bg-primary">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Rincian</h4>
+                  <h4 class="modal-title">Perubahan Anggaran</h4>
                 </div>
   
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Kode Rincian</label>
-                        <select class="form-control" name="kode_rincian" required>
-                          <option value="">-pilih-</option>
-                          @foreach ($rincian as $item)
-                              <option value="{{$item->kode}}">{{$item->kode}} - {{$item->nama}}</option>
-                          @endforeach
-                        </select>
+                        <label>Anggaran Sebelumnya</label>
+                        <input type="text" class="form-control" id="anggaran" name="anggaran" readonly onkeypress="return hanyaAngka(event)"/>
                     </div>
                     <div class="form-group">
-                        <label>Anggaran</label>
-                        <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
-                        <input type="hidden" class="form-control" id="npd_detail_id" name="npd_detail_id" required onkeypress="return hanyaAngka(event)"/>
+                        <label>Anggaran Baru</label>
+                        <input type="text" class="form-control" id="anggaran_perubahan" name="anggaran_perubahan" required onkeypress="return hanyaAngka(event)"/>
+                        <input type="hidden" class="form-control" id="rincian_id" name="rincian_id" required onkeypress="return hanyaAngka(event)"/>
                     </div>
                 </div>
   
@@ -305,9 +300,11 @@
   });
 </script>
 <script>
-  $(document).on('click', '.addrincian', function() {
-     $('#npd_detail_id').val($(this).data('npd_detail_id'));
-     $("#modal-rincian").modal();
+  $(document).on('click', '.perubahananggaran', function() {
+     $('#rincian_id').val($(this).data('rincian_id'));
+     $('#anggaran').val($(this).data('anggaran'));
+     $('#anggaran_perubahan').val($(this).data('anggaran_perubahan'));
+     $("#modal-perubahan").modal();
   });
 </script>
 @endpush

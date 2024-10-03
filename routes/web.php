@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin/deleterincian/{id}', [SuperadminController::class, 'deleteRincian']);
 
     Route::get('superadmin/perubahan', [PerubahanController::class, 'perubahan']);
+    Route::post('superadmin/perubahan/anggaran', [PerubahanController::class, 'ubahAnggaran']);
     Route::get('superadmin/perubahan/uraian/{id}', [PerubahanController::class, 'uraian']);
     Route::get('superadmin/perubahan/uraian/{id}/salinanggaran', [PerubahanController::class, 'salinAnggaran']);
 
