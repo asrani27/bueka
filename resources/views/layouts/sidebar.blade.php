@@ -21,6 +21,7 @@
     <li class="{{ (request()->is('superadmin/npd*')) ? 'active' : '' }}"><a href="/superadmin/npd"><i class="fa fa-file"></i> <span><i>NPD Anggaran</i></span></a></li>
     <li class="{{ (request()->is('superadmin/pnpd*')) ? 'active' : '' }}"><a href="/superadmin/pnpd"><i class="fa fa-file"></i> <span><i>NPD Pencairan</i></span></a></li>
     <li class="{{ (request()->is('superadmin/perubahan*')) ? 'active' : '' }}"><a href="/superadmin/perubahan"><i class="fa fa-file"></i> <span><i>Perubahan Anggaran</i></span></a></li>
+    <li class="{{ (request()->is('superadmin/realisasi*')) ? 'active' : '' }}"><a href="/superadmin/realisasi"><i class="fa fa-file"></i> <span><i>Realisasi</i></span></a></li>
     {{-- <li class="{{ (request()->is('superadmin/tim*')) ? 'active' : '' }}"><a href="/superadmin/tim"><i class="fa fa-arrow-right"></i> <span><i>Tim</i></span></a></li>
     <li class="{{ (request()->is('superadmin/partner*')) ? 'active' : '' }}"><a href="/superadmin/partner"><i class="fa fa-arrow-right"></i> <span><i>Partner</i></span></a></li>
     <li class="{{ (request()->is('superadmin/hubungikami*')) ? 'active' : '' }}"><a href="/superadmin/hubungikami"><i class="fa fa-arrow-right"></i> <span><i>Hubungi Kami</i></span></a></li> --}}
