@@ -17,7 +17,7 @@
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-clipboard"></i> Uraian NPD</h3>
+              <h3 class="box-title"><i class="fa fa-clipboard"></i> Uraian NPD.</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -106,7 +106,11 @@
                     <td>Sisa</td>
                   </tr>
                   @foreach ($data->detail as $key => $item)
-                      <tr class="text-bold">
+                      @if ($item->jenis == 1)
+                      <tr class="text-bold" style="background-color: rgb(250, 197, 197)">
+                      @else
+                      <tr class="text-bold" style="background-color: antiquewhite">
+                      @endif
                         <td>
                         
                       <a href="/superadmin/npd/uraian/{{$data->id}}/rekening/{{$item->id}}" onclick="return confirm('Yakin ingin menghapus rekening');"><i class="fa fa-trash text-danger"></i> </a>
@@ -124,7 +128,11 @@
                         <td>{{number_format($item->anggaran - $item->pencairan)}}</td>
                       </tr>
                       @foreach ($item->rincian as $item2)
-                          <tr>
+                      @if ($item2->jenis == 1)
+                      <tr style="background-color: rgb(248, 222, 222)">
+                      @else
+                      <tr>
+                      @endif
                             <td></td>
                             <td>{{$item2->kode_rincian}}</td>
                             <td>
@@ -243,6 +251,13 @@
                         <label>Anggaran</label>
                         <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
                     </div>
+                    <div class="form-group">
+                        <label>Jenis</label>
+                        <select class="form-control" name="jenis">
+                          <option value="">MURNI</option>
+                          <option value="1">PERUBAHAN</option>
+                        </select>
+                    </div>
                 </div>
   
                 <div class="modal-footer">
@@ -280,6 +295,13 @@
                         <label>Anggaran</label>
                         <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
                         <input type="hidden" class="form-control" id="npd_detail_id" name="npd_detail_id" required onkeypress="return hanyaAngka(event)"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis</label>
+                        <select class="form-control" name="jenis">
+                          <option value="">MURNI</option>
+                          <option value="1">PERUBAHAN</option>
+                        </select>
                     </div>
                 </div>
   

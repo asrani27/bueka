@@ -52,9 +52,21 @@ class SuperadminController extends Controller
 
     public function storeRincian(Request $req)
     {
-        $param = $req->all();
-
-        NpdRincian::create($param);
+        if (NpdDetail::find($req->npd_detail_id)->jenis == '1') {
+            $new = new NpdRincian();
+            $new->npd_detail_id = $req->npd_detail_id;
+            $new->kode_rincian = $req->kode_rincian;
+            $new->anggaran = $req->anggaran;
+            $new->jenis = '1';
+            $new->save();
+        } else {
+            $new = new NpdRincian();
+            $new->npd_detail_id = $req->npd_detail_id;
+            $new->kode_rincian = $req->kode_rincian;
+            $new->anggaran = $req->anggaran;
+            $new->jenis = $req->jenis;
+            $new->save();
+        }
 
         Session::flash('success', 'Berhasil disimpan');
         return back();
@@ -89,8 +101,8 @@ class SuperadminController extends Controller
         $n = new NpdDetail;
         $n->npd_id = $id;
         $n->kode_rekening = $req->kode_rekening;
-        $n->uraian = $req->uraian;
         $n->anggaran = $req->anggaran;
+        $n->jenis = $req->jenis;
         $n->save();
 
         Session::flash('success', 'Berhasil');

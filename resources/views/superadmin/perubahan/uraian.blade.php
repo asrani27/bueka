@@ -105,7 +105,11 @@
                     <td>Berkurang/Bertambah</td>
                   </tr>
                   @foreach ($detail as $key => $item)
-                      <tr class="text-bold">
+                    @if ($item->jenis == 1)
+                    <tr class="text-bold" style="background-color: rgb(250, 197, 197)">
+                    @else
+                    <tr class="text-bold" style="background-color: antiquewhite">
+                    @endif
                         <td>
                         
                       {{-- <a href="/superadmin/npd/uraian/{{$data->id}}/rekening/{{$item->id}}" onclick="return confirm('Yakin ingin menghapus rekening');"><i class="fa fa-trash text-danger"></i> </a> --}}
@@ -122,7 +126,11 @@
                         <td class="text-right">{{number_format($item->anggaran_perubahan - $item->anggaran)}}</td>
                       </tr>
                       @foreach ($item->rincian as $item2)
+                          @if ($item2->jenis == 1)
+                          <tr style="background-color: rgb(248, 222, 222)">
+                          @else
                           <tr>
+                          @endif
                             <td></td>
                             <td>{{$item2->kode_rincian}}</td>
                             <td>
