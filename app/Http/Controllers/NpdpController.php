@@ -154,7 +154,11 @@ class NpdpController extends Controller
         $detail = $data->detail->map(function ($item) use ($data) {
             if ($item->npd->urut == 1) {
                 $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
+                if (status() == 'perubahan') {
+                    $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini;
+                } else {
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
+                }
                 $item->akumulasi = 0;
                 $item->rincian = $item->rincian->map(function ($item2) {
                     $item2->akumulasi_rincian = 0;
@@ -178,7 +182,11 @@ class NpdpController extends Controller
 
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    if (status() == 'perubahan') {
+                        $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
+                    } else {
+                        $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    }
                 } else {
                     $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
                     $akumulasi->map(function ($item) {
@@ -195,9 +203,12 @@ class NpdpController extends Controller
 
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    if (status() == 'perubahan') {
+                        $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
+                    } else {
+                        $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
+                    }
                 }
-                //dd($item, $akumulasi);
             }
             return $item;
         });
