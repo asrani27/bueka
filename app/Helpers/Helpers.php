@@ -36,6 +36,7 @@ function status()
     $year = Carbon::now()->format('Y');
     $month = strtolower(Carbon::now()->translatedFormat('F'));
     $result = Status::where('tahun', $year)->first()[$month];
+    return $result;
 }
 function terbilang($nilai)
 {

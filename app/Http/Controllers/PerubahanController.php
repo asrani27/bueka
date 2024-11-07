@@ -17,7 +17,7 @@ class PerubahanController extends Controller
 
         $data->transform(function ($item) {
             $item->dpa = $item->detail->map(function ($item2) {
-                return $item2->rincian->sum('anggaran');
+                return $item2->rincian->where('jenis', null)->sum('anggaran');
             })->sum();
             $item->dpa_perubahan = $item->detail->map(function ($item3) {
                 return $item3->rincian->sum('anggaran_perubahan');
@@ -31,7 +31,7 @@ class PerubahanController extends Controller
     {
         $data = NPD::find($id);
         $detail = $data->detail->map(function ($item) {
-            $item->anggaran = $item->rincian->sum('anggaran');
+            $item->anggaran = $item->rincian->where('jenis', null)->sum('anggaran');
             $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
             return $item;
         });

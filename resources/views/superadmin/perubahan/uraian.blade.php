@@ -121,7 +121,8 @@
                           {{-- <a href="#" data-npd_detail_id="{{$item->id}}" class="addrincian"><i class="fa fa-plus text-success"></i> </a> --}}
 
                           {{$item->rekening == null ? '' : $item->rekening->nama}}</td>
-                        <td class="text-right">{{number_format($item->anggaran)}}</td>
+                          
+                          <td class="text-right">{{number_format($item->anggaran)}}</td>
                         <td class="text-right">{{number_format($item->anggaran_perubahan)}}</td>
                         <td class="text-right">{{number_format($item->anggaran_perubahan - $item->anggaran)}}</td>
                       </tr>
@@ -137,9 +138,19 @@
 
                               {{-- <a href="/superadmin/deleterincian/{{$item2->id}}" onclick="return confirm('Yakin ingin menghapus rincian');"><i class="fa fa-trash text-danger"></i> </a> --}}
                               {{$item2->rincian == null ? '' : $item2->rincian->nama}}</td>
+
+                          @if ($item2->jenis == 1)
+                            <td class="text-right">0</td>
+                          @else
                             <td class="text-right">{{number_format($item2->anggaran)}}</td>
+                          @endif
                             <td class="text-right"><a href="#" data-rincian_id="{{$item2->id}}" data-anggaran="{{$item2->anggaran}}" data-anggaran_perubahan="{{$item2->anggaran_perubahan}}" class="perubahananggaran"><i class="fa fa-edit text-success"></i> </a>{{number_format($item2->anggaran_perubahan)}}</td>
+
+                          @if ($item2->jenis == 1)
+                            <td class="text-right">{{number_format($item2->anggaran_perubahan - 0)}}</td>
+                            @else
                             <td class="text-right">{{number_format($item2->anggaran_perubahan - $item2->anggaran)}}</td>
+                            @endif
                           </tr>
                       @endforeach
                   @endforeach
