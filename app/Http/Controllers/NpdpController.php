@@ -141,7 +141,10 @@ class NpdpController extends Controller
     }
     public function jenisanggaran(Request $req)
     {
-        dd($req->all());
+        $data = NPD::find($req->jenis_npd_id);
+        $data->jenis_anggaran = $req->jenis_anggaran;
+        $data->save();
+        return back();
     }
     public function delete($id)
     {

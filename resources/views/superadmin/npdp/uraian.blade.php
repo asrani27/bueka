@@ -86,6 +86,12 @@
                     <td>{{terbilang($data->detail->sum('pencairan_saat_ini'))}} Rupiah</td>
                   </tr>
                   <tr>
+                    <td>9</td>
+                    <td>Jenis Anggaran</td>
+                    <td>:</td>
+                    <td>{{$data->jenis_anggaran}}</td>
+                  </tr>
+                  <tr>
                     <td colspan="4" style="text-align: center"><b>PEMBEBANAN PADA KODE REKENING :</b></td>
                   </tr>
                 </table>
