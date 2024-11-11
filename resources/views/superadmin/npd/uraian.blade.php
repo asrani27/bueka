@@ -13,6 +13,12 @@
 @endpush
 @section('content')
 <section class="content">
+  <div class="callout callout-danger">
+    <h4>Informasi!</h4>
+
+    <p>
+      Jika kolom berwarna merah adalah uraian/subkegiatan pada saat perubahan, dan angkanya secara otomatis 0, untuk melakukan perubahan pada angkanya, silahkan ke menu Perubahan Anggaran</p>
+  </div>
    <div class="row">
     <div class="col-md-12">
         <div class="box box-success">
@@ -234,7 +240,7 @@
                 <div class="modal-header bg-primary">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Uraian</h4>
+                  <h4 class="modal-title">Uraian.</h4>
                 </div>
   
                 <div class="modal-body">
@@ -247,10 +253,10 @@
                           @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Anggaran</label>
                         <input type="text" class="form-control" name="anggaran" required onkeypress="return hanyaAngka(event)"/>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Jenis</label>
                         <select class="form-control" name="jenis">

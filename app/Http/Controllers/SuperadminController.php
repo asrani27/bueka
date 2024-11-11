@@ -56,7 +56,7 @@ class SuperadminController extends Controller
             $new = new NpdRincian();
             $new->npd_detail_id = $req->npd_detail_id;
             $new->kode_rincian = $req->kode_rincian;
-            $new->anggaran = $req->anggaran;
+            $new->anggaran = 0;
             $new->jenis = '1';
             $new->save();
         } else {
@@ -98,14 +98,19 @@ class SuperadminController extends Controller
 
     public function storeUraianNpd(Request $req, $id)
     {
-        $n = new NpdDetail;
-        $n->npd_id = $id;
-        $n->kode_rekening = $req->kode_rekening;
-        $n->anggaran = $req->anggaran;
-        $n->jenis = $req->jenis;
-        $n->save();
+        $check = NpdDetail::where('npd_id', $id)->where('kode_rekening', $req->kode_rekening)->first();
+        if ($check == null) {
+            $n = new NpdDetail;
+            $n->npd_id = $id;
+            $n->kode_rekening = $req->kode_rekening;
+            //$n->anggaran = $req->anggaran;
+            $n->jenis = $req->jenis;
+            $n->save();
 
-        Session::flash('success', 'Berhasil');
+            Session::flash('success', 'Berhasil');
+        } else {
+            Session::flash('error', 'Kode rekening sudah ada');
+        }
         return back();
     }
     public function deleteNpd($id)

@@ -26,6 +26,7 @@
                   <th>Tanggal</th>
                   <th>Nomor DPA</th>
                   <th>Tahun Anggaran</th>
+                  <th>Jenis Anggaran</th>
                   <th>Jumlah Dana</th>
                   <th>Subkegiatan</th>
                   <th>Aksi</th>
@@ -48,6 +49,15 @@
                     <td><a href="#" class="ubah-tanggal" data-id="{{$item->id}}"><strong>{{\carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</strong></a></td>
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td>
+                      @if ($item->jenis_anggaran == null)
+                          
+                      <a href="#" class="btn btn-sm btn-success jenis-anggaran" data-id="{{$item->id}}">jenis</a>
+                      {{$item->jenis_anggaran}}
+                      @else
+                      <a href="#" class="btn btn-sm btn-success jenis-anggaran" data-id="{{$item->id}}">{{$item->jenis_anggaran}}</a>
+                      @endif
+                    </td>
                     <td>{{number_format($item->jumlah_dana)}}</td>
                     <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->nama}}</td>
                     
@@ -82,6 +92,39 @@
     </div>
 </section>
 
+<!-- /.modal -->
+<div class="modal fade" id="modal-jenis">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form method="post" action="/superadmin/pnpd/jenisanggaran" enctype="multipart/form-data">
+              @csrf
+              
+              <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Pilih Jenis Anggaran</h4>
+              </div>
+
+              <div class="modal-body">
+                  <div class="form-group">
+                    <select class="form-control" name="jenis_anggaran" required>
+                      <option value="">-</option>
+                      <option value="MURNI">MURNI</option>
+                      <option value="PERUBAHAN">PERUBAHAN</option>
+                    </select>
+                      <input type="hidden" class="form-control" id="jenis_npd_id" name="jenis_npd_id" readonly>
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-success btn-block" name="button" value="tolak"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
 <!-- /.modal -->
 <div class="modal fade" id="modal-tambah">
   <div class="modal-dialog">
@@ -143,6 +186,12 @@
 @endsection
 @push('js')
 
+<script>
+  $(document).on('click', '.jenis-anggaran', function() {
+    $('#jenis_npd_id').val($(this).data('id'));
+     $("#modal-jenis").modal();
+  });
+  </script>
 <script>
   $(document).on('click', '.ubah-tanggal', function() {
     $('#npd_id_tanggal').val($(this).data('id'));

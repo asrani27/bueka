@@ -100,7 +100,12 @@
                     <td>Sisa</td>
                   </tr>
                   @foreach ($detail as $key => $item)
-                      <tr class="text-bold">
+
+                  @if ($item->jenis == 1)
+                  <tr class="text-bold" style="background-color: rgb(250, 197, 197)">
+                  @else
+                  <tr class="text-bold" style="background-color: antiquewhite">
+                  @endif
                         <td>{{$key + 1}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
@@ -111,8 +116,13 @@
                         </td>
                         <td class="text-right">{{number_format($item->sisa)}}</td>
                       </tr>
+                      
                       @foreach ($item->rincian as $key2 => $item2)
-                          <tr>
+                      @if ($item2->jenis == 1)
+                      <tr style="background-color: rgb(248, 222, 222)">
+                      @else
+                      <tr>
+                      @endif
                             <td></td>
                             <td>{{$item2->kode_rincian}}</td>
                             <td>{{$item2->rincian->nama}}</td>

@@ -27,6 +27,7 @@ class NpdpController extends Controller
     }
     public function uraian($id)
     {
+
         $data = NPD::where('id', $id)->get()->map(function ($item) {
             $item->potongan = $item->ppn + $item->pph21 + $item->pph22 + $item->pph23 + $item->pph4;
             return $item;
@@ -138,6 +139,10 @@ class NpdpController extends Controller
         Session::flash('success', 'Berhasil di update');
         return back();
     }
+    public function jenisanggaran(Request $req)
+    {
+        dd($req->all());
+    }
     public function delete($id)
     {
         NPD::find($id)->delete();
@@ -157,6 +162,7 @@ class NpdpController extends Controller
                 $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                 if (status() == 'perubahan') {
                     $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini;
+                    $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
                 } else {
                     $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
                 }
@@ -184,12 +190,13 @@ class NpdpController extends Controller
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     if (status() == 'perubahan') {
 
+                        $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
                         $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
                     } else {
                         $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
                     }
                 } else {
-                    dd($item->rincian);
+
                     $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
                     $akumulasi->map(function ($item) {
                         $item->akumulasi = $item->detail->map(function ($item2) {
@@ -206,6 +213,8 @@ class NpdpController extends Controller
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     if (status() == 'perubahan') {
+                        dd($item->rincian, $item);
+                        $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
                         $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
                     } else {
                         $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
@@ -214,6 +223,8 @@ class NpdpController extends Controller
             }
             return $item;
         });
+
+        dd($detail);
         $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd', compact('data', 'detail'));
         $filename = $data->user->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
         return $pdf->stream($filename);
