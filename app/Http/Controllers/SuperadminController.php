@@ -63,7 +63,11 @@ class SuperadminController extends Controller
             $new = new NpdRincian();
             $new->npd_detail_id = $req->npd_detail_id;
             $new->kode_rincian = $req->kode_rincian;
-            $new->anggaran = $req->anggaran;
+            if ($req->jenis == 1) {
+                $new->anggaran = 0;
+            } else {
+                $new->anggaran = $req->anggaran;
+            }
             $new->jenis = $req->jenis;
             $new->save();
         }

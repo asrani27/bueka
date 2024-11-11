@@ -107,7 +107,11 @@ class NpdpController extends Controller
             return $item;
         });
 
-        return view('superadmin.npdp.uraian', compact('data', 'detail'));
+        if ($data->jenis_anggaran === 'MURNI') {
+            return view('superadmin.npdp.uraian', compact('data', 'detail'));
+        } else {
+            return view('superadmin.npdp.uraian_perubahan', compact('data', 'detail'));
+        }
     }
     public function validasi($id)
     {
