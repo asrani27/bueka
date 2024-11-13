@@ -269,4 +269,11 @@ class NpdpController extends Controller
         $filename = $data->user->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
         return $pdf->stream($filename);
     }
+
+    public function deleteRekening($id)
+    {
+        NpdDetail::find($id)->delete();
+        Session::flash('success', 'Berhasil di hapus');
+        return back();
+    }
 }
