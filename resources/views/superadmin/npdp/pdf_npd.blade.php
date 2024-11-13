@@ -90,11 +90,8 @@
             <td style="border:1px solid black;padding:3px">{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
             <td style="border:1px solid black;padding:3px">{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
             
-            @if (status() == 'perubahan')   
-            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->anggaran_perubahan)}}</td>
-            @else
             <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->anggaran)}}</td>
-            @endif
+            
             <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->akumulasi)}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->pencairan_saat_ini)}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->sisa)}}</td>
@@ -104,11 +101,8 @@
         <td colspan=3 style="text-align: right;border:1px solid black;padding:3px">TOTAL</td>
            
         
-        @if (status() == 'perubahan')   
-        <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($data->detail->sum('anggaran_perubahan'))}}</td>
-        @else
+        
         <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($data->detail->sum('anggaran'))}}</td>
-        @endif
         <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($data->detail->sum('akumulasi'))}}</td>
         <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
         <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($data->detail->sum('sisa'))}}</td>
