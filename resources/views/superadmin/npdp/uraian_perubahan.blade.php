@@ -114,7 +114,10 @@
                   @else
                   <tr class="text-bold" style="background-color: antiquewhite">
                   @endif
-                        <td>{{$key + 1}}</td>
+                        <td>    
+                          <a href="/superadmin/npd/uraian/{{$item->id}}/delete" onclick="return confirm('Yakin ingin menghapus rekening');"><i class="fa fa-trash text-danger"></i> </a>
+                          {{$key + 1}}
+                        </td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
                         <td class="text-right">{{number_format($item->rincian->sum('anggaran_perubahan'))}}</td>
