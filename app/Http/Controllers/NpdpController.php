@@ -214,12 +214,8 @@ class NpdpController extends Controller
 
             if ($item->npd->urut == 1) {
                 $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                if (status() == 'perubahan') {
-                    $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini;
-                    $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
-                } else {
-                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
-                }
+                $item->anggaran = $item->rincian->sum('anggaran');
+                $item->sisa = $item->anggaran - $item->pencairan_saat_ini;
                 $item->akumulasi = 0;
                 $item->rincian = $item->rincian->map(function ($item2) {
                     $item2->akumulasi_rincian = 0;
@@ -242,13 +238,8 @@ class NpdpController extends Controller
 
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                    if (status() == 'perubahan') {
-
-                        $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
-                        $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
-                    } else {
-                        $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
-                    }
+                    $item->anggaran = $item->rincian->sum('anggaran');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
                 } else {
 
                     $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $item->npd->kode_subkegiatan)->where('urut', '<', $item->npd->urut)->get();
@@ -266,13 +257,8 @@ class NpdpController extends Controller
 
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
-                    if (status() == 'perubahan') {
-                        //dd($item->rincian, $item);
-                        $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
-                        $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
-                    } else {
-                        $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
-                    }
+                    $item->anggaran = $item->rincian->sum('anggaran');
+                    $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
                 }
             }
             return $item;
