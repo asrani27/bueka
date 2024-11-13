@@ -267,7 +267,7 @@ class NpdpController extends Controller
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     if (status() == 'perubahan') {
-                        dd($item->rincian, $item);
+                        //dd($item->rincian, $item);
                         $item->anggaran_perubahan = $item->rincian->sum('anggaran_perubahan');
                         $item->sisa = $item->anggaran_perubahan - $item->pencairan_saat_ini - $item->akumulasi;
                     } else {
