@@ -278,7 +278,7 @@ class NpdpController extends Controller
             return $item;
         });
 
-        dd($detail);
+
         $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd', compact('data', 'detail'));
         $filename = $data->user->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
         return $pdf->stream($filename);
