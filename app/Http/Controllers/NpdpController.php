@@ -272,6 +272,7 @@ class NpdpController extends Controller
 
     public function deleteRekening($id)
     {
+        NpdRincian::where('npd_detail_id', $id)->delete();
         NpdDetail::find($id)->delete();
         Session::flash('success', 'Berhasil di hapus');
         return back();
