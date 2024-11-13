@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin/pnpd/pdf/{id}', [NpdpController::class, 'pdf']);
     Route::post('superadmin/pnpd/isinomor', [NpdpController::class, 'isinomor']);
     Route::get('superadmin/pnpd/uraian/{id}', [NpdpController::class, 'uraian']);
+    Route::get('superadmin/pnpd/uraian/{id}/refresh', [NpdpController::class, 'setAnggaranPerubahan']);
     Route::get('superadmin/pnpd/delete/{id}', [NpdpController::class, 'delete']);
     Route::get('superadmin/pnpd/validasi/{id}', [NpdpController::class, 'validasi']);
     Route::get('superadmin/pnpd/batalvalidasi/{id}', [NpdpController::class, 'batalvalidasi']);

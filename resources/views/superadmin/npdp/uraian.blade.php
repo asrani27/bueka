@@ -100,7 +100,9 @@
                     <td>No Urut</td>
                     <td>Kode Rekening</td>
                     <td>Uraian</td>
-                    <td>Anggaran</td>
+                    <td>Anggaran
+                     
+                    </td>
                     <td>Akumulasi</td>
                     <td>Pencairan Saat Ini</td>
                     <td>Sisa</td>

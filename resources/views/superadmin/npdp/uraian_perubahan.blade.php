@@ -100,7 +100,9 @@
                     <td>No Urut</td>
                     <td>Kode Rekening</td>
                     <td>Uraian</td>
-                    <td>Anggaran</td>
+                    <td>Anggaran
+                      <a href="/superadmin/pnpd/uraian/{{$data->id}}/refresh" class='btn btn-xs btn-danger'>refresh</a>
+                    </td>
                     <td>Akumulasi</td>
                     <td>Pencairan Saat Ini</td>
                     <td>Sisa</td>
@@ -115,12 +117,12 @@
                         <td>{{$key + 1}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
                         <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
-                        <td class="text-right">{{number_format($item->anggaran)}}</td>
+                        <td class="text-right">{{number_format($item->rincian->sum('anggaran_perubahan'))}}</td>
                         <td class="text-right">{{number_format($item->akumulasi)}}</td>
                         <td style="text-align: right">{{number_format($item->pencairan_saat_ini)}}
                         
                         </td>
-                        <td class="text-right">{{number_format($item->sisa)}}</td>
+                        <td class="text-right">{{number_format($item->rincian->sum('anggaran_perubahan') - $item->akumulasi - $item->pencairan_saat_ini)}}</td>
                       </tr>
                       
                       @foreach ($item->rincian as $key2 => $item2)
@@ -132,24 +134,24 @@
                             <td></td>
                             <td>{{$item2->kode_rincian}}</td>
                             <td>{{$item2->rincian->nama}}</td>
-                            <td class="text-right">{{number_format($item2->anggaran)}}</td>
+                            <td class="text-right">{{number_format($item2->anggaran_perubahan)}}</td>
                             <td class="text-right">{{number_format($item2->akumulasi_rincian)}}</td>
                             <td class="text-right">
                               
                             {{number_format($item2->pencairan)}}
                             </td>
                             <td class="text-right">
-                              {{number_format($item2->anggaran - $item2->pencairan - $item2->akumulasi_rincian)}}
+                              {{number_format($item2->anggaran_perubahan - $item2->pencairan - $item2->akumulasi_rincian)}}
                             </td>
                           </tr>
                       @endforeach
                   @endforeach
                   <tr style="background-color: aquamarine" class="text-bold">
                     <td colspan=3>TOTAL</td>
-                    <td class="text-right">{{number_format($data->detail->sum('anggaran'))}}</td>
-                    <td></td>
+                    <td class="text-right">{{number_format($data->detail->flatMap->rincian->sum('anggaran_perubahan'))}}</td>
+                    <td class="text-right">{{number_format($data->detail->sum('akumulasi'))}}</td>
                     <td style="text-align: right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
-                    <td class="text-right">{{number_format($data->detail->sum('sisa'))}}</td>
+                    <td class="text-right">{{number_format($data->detail->flatMap->rincian->sum('anggaran_perubahan') - $data->detail->sum('akumulasi') - $data->detail->sum('pencairan_saat_ini'))}}</td>
                   </tr>
                   <tr>
                     <td colspan=6 style="text-align: center">PPN</td>

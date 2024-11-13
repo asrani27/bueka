@@ -12,6 +12,53 @@ use Illuminate\Support\Facades\Session;
 
 class NpdpController extends Controller
 {
+    public function setAnggaranPerubahan($id)
+    {
+        //uraian dari data murni ke data perubahan
+        $npd = NPD::with('detail.rincian')->find($id);
+        $perubahan = NPD::where('tahun_anggaran', $npd->tahun_anggaran)->where('kode_subkegiatan', $npd->kode_subkegiatan)->where('jenis', 'anggaran')->first();
+
+        if (!$npd) {
+            return redirect()->back()->with('error', 'Data NPD tidak ditemukan.');
+        }
+
+        //diff dari murni ke perubahan
+        foreach ($perubahan->detail as $details) {
+
+            $checkNpdDetail = $npd->detail->where('kode_rekening', $details->kode_rekening)->first();
+            if ($checkNpdDetail === null) {
+                $npdDetail = new NpdDetail();
+                $npdDetail->npd_id = $npd->id;
+                $npdDetail->kode_rekening = $details->kode_rekening;
+                $npdDetail->jenis = $details->jenis;
+                $npdDetail->save();
+            }
+
+            $npdDetailMurni = NpdDetail::where('npd_id', $npd->id)->where('kode_rekening', $details->kode_rekening)->first()->rincian;
+
+            foreach ($details->rincian as $rinci) {
+                $checkRincian = $npdDetailMurni->where('kode_rincian', $rinci->kode_rincian)->first();
+                if ($checkRincian === null) {
+                    //tambah rincian baru
+                    $new = new NpdRincian();
+                    $new->npd_detail_id = NpdDetail::where('npd_id', $npd->id)->where('kode_rekening', $details->kode_rekening)->first()->id;
+                    $new->kode_rincian = $rinci->kode_rincian;
+                    $new->anggaran = $rinci->anggaran;
+                    $new->anggaran_perubahan = $rinci->anggaran_perubahan;
+                    $new->jenis = $rinci->jenis;
+                    $new->save();
+                } else {
+                    //update anggaran perubahan
+                    $update = $checkRincian;
+                    $update->anggaran_perubahan = $rinci->anggaran_perubahan;
+                    $update->jenis = $rinci->jenis;
+                    $update->save();
+                }
+            }
+        }
+        Session::flash('success', 'Berhasil');
+        return back();
+    }
     public function index()
     {
         $data = NPD::where('jenis', 'pencairan')->where('status', 1)->orderBy('id', 'DESC')->get();
