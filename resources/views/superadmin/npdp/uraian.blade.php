@@ -149,7 +149,7 @@
                   <tr style="background-color: aquamarine" class="text-bold">
                     <td colspan=3>TOTAL</td>
                     <td class="text-right">{{number_format($data->detail->sum('anggaran'))}}</td>
-                    <td></td>
+                    <td class="text-right">{{number_format($data->detail->sum('akumulasi'))}}</td>
                     <td style="text-align: right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
                     <td class="text-right">{{number_format($data->detail->sum('sisa'))}}</td>
                   </tr>
