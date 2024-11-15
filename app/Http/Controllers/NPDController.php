@@ -115,7 +115,11 @@ class NPDController extends Controller
             return $item;
         });
 
-        return view('admin.npd.uraian', compact('data', 'detail'));
+        if ($data->jenis_anggaran === 'MURNI') {
+            return view('admin.npd.uraian', compact('data', 'detail'));
+        } else {
+            return view('admin.npd.uraian_perubahan2', compact('data', 'detail'));
+        }
     }
     public function create()
     {
@@ -131,14 +135,15 @@ class NPDController extends Controller
         $param['user_id'] = Auth::user()->id;
         $param['jenis'] = 'pencairan';
         $param['tanggal'] = Carbon::now()->format('Y-m-d');
+        $param['jenis_anggaran'] = $req->jenis_anggaran;
 
         $n = NPD::create($param);
 
         foreach ($npd->detail as $key => $item) {
+
             $d = new NpdDetail;
             $d->npd_id = $n->id;
             $d->kode_rekening = $item->kode_rekening;
-            $d->anggaran = $item->anggaran;
             $d->save();
 
             foreach ($item->rincian as $key2 => $item2) {
@@ -146,6 +151,8 @@ class NPDController extends Controller
                 $r->npd_detail_id = $d->id;
                 $r->kode_rincian = $item2->kode_rincian;
                 $r->anggaran = $item2->anggaran;
+                $r->anggaran_perubahan = $item2->anggaran_perubahan;
+                $r->jenis = $item2->jenis;
                 $r->save();
             }
         }
@@ -155,9 +162,14 @@ class NPDController extends Controller
     }
     public function delete($id)
     {
+        $npd = NPD::find($id);
 
-        NPD::find($id)->delete();
+        if ($npd && $npd->detail->isNotEmpty()) {
+            NpdRincian::whereIn('npd_detail_id', $npd->detail->pluck('id'))->delete();
+        } else {
+        }
 
+        $npd->delete();
         Session::flash('success', 'Berhasil dihapus');
         return back();
     }
@@ -174,7 +186,13 @@ class NPDController extends Controller
     public function storePencairanRincian(Request $req, $id)
     {
         $find = NpdRincian::find($req->npd_rincian_id);
-        if ($find->anggaran < (int)$req->pencairan_saat_ini) {
+
+        if (NPD::find($id)->jenis_anggaran === 'MURNI') {
+            $anggaran = $find->anggaran;
+        } else {
+            $anggaran = $find->anggaran_perubahan;
+        }
+        if ($anggaran < (int)$req->pencairan_saat_ini) {
 
             Session::flash('info', 'Gagal disimpan, anggaran kurang/realisasi melebihi');
             return back();

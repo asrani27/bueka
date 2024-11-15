@@ -26,6 +26,7 @@
                   <th>Nomor DPA</th>
                   <th>Jumlah Dana</th>
                   <th>Tahun Anggaran</th>
+                  <th>Jenis Anggaran</th>
                   <th>Sub Kegiatan</th>
                   <th>Aksi</th>
                 </tr>
@@ -38,6 +39,7 @@
                     <td>{{$item->nomor_dpa}}</td>
                     <td>{{number_format($item->jumlah_dana)}}</td>
                     <td>{{$item->tahun_anggaran}}</td>
+                    <td>{{$item->jenis_anggaran}}</td>
                     <td>{{$item->subkegiatan->nama}}</td>
                     
                     <td>

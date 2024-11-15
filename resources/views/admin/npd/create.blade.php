@@ -26,6 +26,17 @@
                     </select>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Jenis Anggaran</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="jenis_anggaran" required>
+
+                      <option value="">-</option>
+                      <option value="MURNI">MURNI</option>
+                      <option value="PERUBAHAN">PERUBAHAN</option>
+                    </select>
+                  </div>
+                </div>
                 
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label"></label>
