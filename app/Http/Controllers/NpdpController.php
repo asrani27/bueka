@@ -264,8 +264,12 @@ class NpdpController extends Controller
             return $item;
         });
 
+        if ($data->jenis_anggaran === 'MURNI') {
+            $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd', compact('data', 'detail'));
+        } else {
 
-        $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd', compact('data', 'detail'));
+            $pdf  = Pdf::loadView('superadmin.npdp.pdf_npd_perubahan', compact('data', 'detail'));
+        }
         $filename = $data->user->name . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.pdf';
         return $pdf->stream($filename);
     }
