@@ -306,7 +306,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label>Kode Rincian</label>
-              <select class="form-control select2" name="kode_rincian" required>
+              <select class="form-control select2" name="kode_rincian" required style="width: 100%;">
                 <option value="">-pilih-</option>
                 @foreach ($rincian as $item)
                 <option value="{{$item->kode}}">{{$item->kode}} - {{$item->nama}}</option>
