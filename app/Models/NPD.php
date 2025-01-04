@@ -31,4 +31,8 @@ class NPD extends Model
     {
         return $this->belongsTo(Subkegiatan::class, 'kode_subkegiatan');
     }
+    public function rincian()
+    {
+        return $this->hasManyThrough(NpdDetail::class, NpdRincian::class);
+    }
 }

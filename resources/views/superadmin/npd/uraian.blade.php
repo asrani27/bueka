@@ -170,7 +170,7 @@
             @endforeach
             <tr style="background-color: aquamarine">
               <td colspan=3>TOTAL</td>
-              <td>{{number_format($data->detail->sum('anggaran'))}}</td>
+              <td>{{number_format($data->rincian()->sum('anggaran'))}}</td>
               <td></td>
               <td></td>
               <td></td>
