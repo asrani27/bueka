@@ -13,6 +13,9 @@
     padding: 5px;
   }
 </style>
+
+<!-- Select2 -->
+<link rel="stylesheet" href="/assets/bower_components/select2/dist/css/select2.min.css">
 @endpush
 @section('content')
 <section class="content">
@@ -303,7 +306,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label>Kode Rincian</label>
-              <select class="form-control" name="kode_rincian" required>
+              <select class="form-control select2" name="kode_rincian" required>
                 <option value="">-pilih-</option>
                 @foreach ($rincian as $item)
                 <option value="{{$item->kode}}">{{$item->kode}} - {{$item->nama}}</option>
@@ -339,7 +342,14 @@
 
 @endsection
 @push('js')
+
+<!-- Select2 -->
+<script src="/assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
   function hanyaAngka(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
      if (charCode > 31 && (charCode < 48 || charCode > 57))
