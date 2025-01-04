@@ -141,7 +141,7 @@
 
                 {{$item->rekening == null ? '' : $item->rekening->nama}}
               </td>
-              <td>{{number_format($item->anggaran)}}</td>
+              <td>{{number_format($item->rincian->sum('anggaran'))}}</td>
               <td></td>
               <td>{{$item->pencairan}}</td>
               <td>{{number_format($item->anggaran - $item->pencairan)}}</td>
