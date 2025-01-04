@@ -33,6 +33,6 @@ class NPD extends Model
     }
     public function rincian()
     {
-        return $this->hasManyThrough(NpdDetail::class, NpdRincian::class);
+        return $this->hasManyThrough(NpdRincian::class, NpdDetail::class);
     }
 }
