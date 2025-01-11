@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/assets/bower_components/select2/dist/css/select2.min.css">
 @endpush
 @section('content')
+
 <section class="content">
   <div class="callout callout-danger">
     <h4>Informasi!</h4>
@@ -141,10 +142,10 @@
 
                 {{$item->rekening == null ? '' : $item->rekening->nama}}
               </td>
-              <td>{{number_format($item->rincian->sum('anggaran'))}}</td>
+              <td style="text-align: right">{{number_format($item->total_rincian)}}</td>
               <td></td>
               <td>{{$item->pencairan}}</td>
-              <td>{{number_format($item->anggaran - $item->pencairan)}}</td>
+              <td style="text-align: right">{{number_format($item->total_rincian - $item->pencairan)}}</td>
             </tr>
             @foreach ($item->rincian as $item2)
             @if ($item2->jenis == 1)
@@ -161,7 +162,7 @@
                 </a>
                 {{$item2->rincian == null ? '' : $item2->rincian->nama}}
               </td>
-              <td>{{number_format($item2->anggaran)}}</td>
+              <td style="text-align: right">{{number_format($item2->anggaran)}}</td>
               <td></td>
               <td></td>
               <td></td>
@@ -169,10 +170,8 @@
             @endforeach
             @endforeach
             <tr style="background-color: aquamarine">
-              <td colspan=3>TOTAL</td>
-              <td>{{number_format($data->detail->flatMap(function ($detail) {
-                return $detail->rincian;
-                })->sum('anggaran'))}}</td>
+              <td colspan=3 style="text-align: right;font-weight:bold">TOTAL</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->detail->sum('total_rincian'))}}</td>
               <td></td>
               <td></td>
               <td></td>

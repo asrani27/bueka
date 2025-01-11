@@ -35,4 +35,8 @@ class NPD extends Model
     {
         return $this->hasManyThrough(NpdRincian::class, NpdDetail::class);
     }
+    public function getTotalDPAAttribute()
+    {
+        return $this->detail->sum('total_rincian');
+    }
 }
