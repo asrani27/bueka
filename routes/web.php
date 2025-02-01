@@ -36,6 +36,7 @@ Route::get('partner', [FrontController::class, 'partner']);
 Route::get('hubungikami', [FrontController::class, 'hubungikami']);
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::get('superadmin', [HomeController::class, 'superadmin']);
+    Route::post('superadmin/simpantahun', [HomeController::class, 'simpantahun']);
     Route::get('superadmin/gp', [GantiPasswordController::class, 'index']);
     Route::post('superadmin/gp', [GantiPasswordController::class, 'update']);
     Route::post('superadmin/sk/updatelurah', [HomeController::class, 'updatelurah']);

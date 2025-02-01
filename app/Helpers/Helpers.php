@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Tahun;
 use App\Models\Status;
 
 function penyebut($nilai)
@@ -36,6 +37,16 @@ function status()
     $year = Carbon::now()->format('Y');
     $month = strtolower(Carbon::now()->translatedFormat('F'));
     $result = Status::where('tahun', $year)->first()[$month];
+    return $result;
+}
+function tahunAktif()
+{
+    $tahun = Tahun::where('is_aktif', 1)->first();
+    if ($tahun == null) {
+        $result = null;
+    } else {
+        $result = $tahun->tahun;
+    }
     return $result;
 }
 function terbilang($nilai)

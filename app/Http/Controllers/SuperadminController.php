@@ -18,7 +18,10 @@ class SuperadminController extends Controller
 {
     public function npd()
     {
-        $data = NPD::where('jenis', 'anggaran')->orderBy('id', 'DESC')->get();
+        $data = NPD::where('jenis', 'anggaran')
+            ->when(tahunAktif() !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif()))
+            ->orderBy('id', 'DESC')
+            ->get();
         //dd($data);
         $data->transform(function ($item) {
             $item->dpa = $item->detail->sum('anggaran');

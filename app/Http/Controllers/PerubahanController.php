@@ -13,7 +13,10 @@ class PerubahanController extends Controller
 {
     public function perubahan()
     {
-        $data = NPD::where('jenis', 'anggaran')->orderBy('id', 'DESC')->get();
+        $data = NPD::where('jenis', 'anggaran')
+            ->when(tahunAktif() !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif()))
+            ->orderBy('id', 'DESC')
+            ->get();
 
         $data->transform(function ($item) {
             $item->dpa = $item->detail->map(function ($item2) {

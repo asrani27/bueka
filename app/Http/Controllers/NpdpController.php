@@ -61,7 +61,11 @@ class NpdpController extends Controller
     }
     public function index()
     {
-        $data = NPD::where('jenis', 'pencairan')->where('status', 1)->orderBy('id', 'DESC')->get();
+        $data = NPD::where('jenis', 'pencairan')
+            ->when(tahunAktif() !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif()))
+            ->where('status', 1)
+            ->orderBy('id', 'DESC')
+            ->get();
         $data->transform(function ($item) {
             $item->jumlah_dana = $item->detail->map(function ($item2) {
                 $item2->pencairan_saat_ini = $item2->rincian->sum('pencairan');
