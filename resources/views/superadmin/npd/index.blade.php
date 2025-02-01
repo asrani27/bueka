@@ -56,7 +56,7 @@
                 <td></td>
                 <td></td>
                 <td>TOTAL</td>
-                <td class="text-right"><strong>{{number_format($data->sum('dpa'))}}</strong></td>
+                <td class="text-right"><strong>{{number_format($data->sum('total_dpa'))}}</strong></td>
                 <td></td>
                 <td></td>
               </tr>
