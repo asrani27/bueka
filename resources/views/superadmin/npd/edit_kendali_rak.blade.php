@@ -100,7 +100,7 @@
           <table width="100%">
             <tr class="text-center text-bold" style="background-color: rgb(247, 171, 208);">
               <td rowspan="3">Kode Rekening</td>
-              <td rowspan="3">Uraian</td>
+              <td rowspan="3" style="min-width:250px;">Uraian</td>
               <td rowspan="3">Anggaran Tahun Ini</td>
               <td rowspan="3">Total RAK</td>
               <td colspan="6">Semester I</td>
@@ -147,6 +147,70 @@
               <td style="text-align: right">{{number_format($item->total_desember)}}</td>
             </tr>
             @foreach ($item->rincian as $item2)
+            @if ($id_rincian == $item2->id)
+            <tr style="background-color: rgb(185, 252, 252)">
+              <form method="post" action="/superadmin/npd/kendalirak/{{$data->id}}/edit/{{$item2->id}}">
+                @csrf
+
+                <td style="text-align: right">
+                  <a href="/superadmin/npd/kendalirak/{{$data->id}}" class="btn btn-xs btn-danger">Batal</a>
+
+                  <button type="submit" class="btn btn-xs btn-success">update</button>
+                </td>
+                <td>{{$item2->rincian->nama}}</td>
+                <td style="text-align: right">{{number_format($item2->anggaran)}}</td>
+                <td style="text-align: right">{{number_format($item2->total_rak)}}</td>
+                <td style="text-align: right">
+                  <input type="text" name="januari" size="12" value="{{$item2->januari}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="februari" size="12" value="{{$item2->februari}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="maret" size="12" value="{{$item2->maret}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="april" size="12" value="{{$item2->april}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="mei" size="12" value="{{$item2->mei}}" onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="juni" size="12" value="{{$item2->juni}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="juli" size="12" value="{{$item2->juli}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="agustus" size="12" value="{{$item2->agustus}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="september" size="12" value="{{$item2->september}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="oktober" size="12" value="{{$item2->oktober}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="november" size="12" value="{{$item2->november}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+                <td style="text-align: right">
+                  <input type="text" name="desember" size="12" value="{{$item2->desember}}"
+                    onkeypress="return hanyaAngka(event)">
+                </td>
+
+              </form>
+            </tr>
+            @else
             <tr>
               <td style="text-align: right">
                 <a href="/superadmin/npd/kendalirak/{{$data->id}}/edit/{{$item2->id}}"><i class="fa fa-edit"></i></a>
@@ -167,6 +231,8 @@
               <td style="text-align: right">{{number_format($item2->november)}}</td>
               <td style="text-align: right">{{number_format($item2->desember)}}</td>
             </tr>
+            @endif
+
             @endforeach
             @endforeach
             <tr>

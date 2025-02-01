@@ -90,6 +90,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('superadmin/npd/edit/{id}', [SuperadminController::class, 'updateNpd']);
     Route::get('superadmin/npd/delete/{id}', [SuperadminController::class, 'deleteNpd']);
     Route::get('superadmin/npd/kendalirak/{id}', [SuperadminController::class, 'kendali_rak']);
+    Route::get('superadmin/npd/kendalirak/{id}/edit/{id_rincian}', [SuperadminController::class, 'edit_kendali_rak']);
+    Route::post('superadmin/npd/kendalirak/{id}/edit/{id_rincian}', [SuperadminController::class, 'update_kendali_rak']);
     Route::get('superadmin/npd/uraian/{id}', [SuperadminController::class, 'uraianNpd']);
     Route::post('superadmin/npd/uraian/{id}/add', [SuperadminController::class, 'storeUraianNpd']);
     Route::get('superadmin/npd/uraian/{id}/rekening/{id_rekening}', [SuperadminController::class, 'deleteUraian']);

@@ -55,6 +55,32 @@ class SuperadminController extends Controller
         $rincian = Rincian::get();
         return view('superadmin.npd.kendali_rak', compact('data', 'rekening', 'rincian'));
     }
+    public function edit_kendali_rak($id, $id_rincian)
+    {
+        $data = NPD::find($id);
+        $rekening = Rekening::get();
+        $rincian = Rincian::get();
+        return view('superadmin.npd.edit_kendali_rak', compact('data', 'rekening', 'rincian', 'id_rincian'));
+    }
+    public function update_kendali_rak(Request $req, $id, $id_rincian)
+    {
+        NpdRincian::find($id_rincian)->update([
+            'januari' => $req->januari,
+            'februari' => $req->februari,
+            'maret' => $req->maret,
+            'april' => $req->april,
+            'mei' => $req->mei,
+            'juni' => $req->juni,
+            'juli' => $req->juli,
+            'agustus' => $req->agustus,
+            'september' => $req->september,
+            'oktober' => $req->oktober,
+            'november' => $req->november,
+            'desember' => $req->desember,
+        ]);
+        Session::flash('success', 'Berhasil disimpan');
+        return redirect('/superadmin/npd/kendalirak/' . $id);
+    }
 
     public function createNpd()
     {
