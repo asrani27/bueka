@@ -18,4 +18,19 @@ class NpdRincian extends Model
     {
         return $this->belongsTo(Rincian::class, 'kode_rincian');
     }
+    public function getTotalRAKAttribute()
+    {
+        return $this->januari +
+            $this->feberuari +
+            $this->maret +
+            $this->april +
+            $this->mei +
+            $this->juni +
+            $this->juli +
+            $this->agustus +
+            $this->september +
+            $this->oktober +
+            $this->november +
+            $this->desember;
+    }
 }

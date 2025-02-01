@@ -29,4 +29,67 @@ class NpdDetail extends Model
     {
         return $this->rincian->sum('anggaran');
     }
+    public function getTotalJanuariAttribute()
+    {
+        return $this->rincian->sum('januari');
+    }
+    public function getTotalFebruariAttribute()
+    {
+        return $this->rincian->sum('februari');
+    }
+    public function getTotalMaretAttribute()
+    {
+        return $this->rincian->sum('maret');
+    }
+    public function getTotalAprilAttribute()
+    {
+        return $this->rincian->sum('april');
+    }
+    public function getTotalMeiAttribute()
+    {
+        return $this->rincian->sum('mei');
+    }
+    public function getTotalJuniAttribute()
+    {
+        return $this->rincian->sum('juni');
+    }
+    public function getTotalJuliAttribute()
+    {
+        return $this->rincian->sum('juli');
+    }
+    public function getTotalAgustusAttribute()
+    {
+        return $this->rincian->sum('agustus');
+    }
+    public function getTotalSeptemberAttribute()
+    {
+        return $this->rincian->sum('september');
+    }
+    public function getTotalOktoberAttribute()
+    {
+        return $this->rincian->sum('oktober');
+    }
+    public function getTotalNovemberAttribute()
+    {
+        return $this->rincian->sum('november');
+    }
+    public function getTotalDesemberAttribute()
+    {
+        return $this->rincian->sum('desember');
+    }
+    public function getTotalRAKAttribute()
+    {
+        return $this->total_januari +
+            $this->total_feberuari +
+            $this->total_maret +
+            $this->total_april +
+            $this->total_mei +
+            $this->total_juni +
+            $this->total_juli +
+            $this->total_agustus +
+            $this->total_september +
+            $this->total_oktober +
+            $this->total_november +
+            $this->total_desember;
+    }
 }

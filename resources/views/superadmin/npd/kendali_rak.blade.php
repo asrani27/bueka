@@ -98,7 +98,7 @@
           </table>
           <br />
           <table width="100%">
-            <tr class="text-center">
+            <tr class="text-center text-bold" style="background-color: rgb(247, 171, 208);">
               <td rowspan="3">Kode Rekening</td>
               <td rowspan="3">Uraian</td>
               <td rowspan="3">Anggaran Tahun Ini</td>
@@ -106,13 +106,13 @@
               <td colspan="6">Semester I</td>
               <td colspan="6">Semester II</td>
             </tr>
-            <tr class="text-center">
+            <tr class="text-center text-bold" style="background-color: rgb(247, 171, 208);">
               <td colspan="3">Triwulan I</td>
               <td colspan="3">Triwulan II</td>
               <td colspan="3">Triwulan III</td>
               <td colspan="3">Triwulan IV</td>
             </tr>
-            <tr class="text-center">
+            <tr class="text-center text-bold" style="background-color: rgb(247, 171, 208);">
               <td>Januari</td>
               <td>Februari</td>
               <td>Maret</td>
@@ -132,8 +132,40 @@
               <td style="text-align: center">{{$item->kode_rekening}}</td>
               <td>{{$item->rekening->nama}}</td>
               <td style="text-align: right">{{number_format($item->total_rincian)}}</td>
-              <td></td>
+              <td style="text-align: right">{{number_format($item->total_rak)}}</td>
+              <td style="text-align: right">{{number_format($item->total_januari)}}</td>
+              <td style="text-align: right">{{number_format($item->total_februari)}}</td>
+              <td style="text-align: right">{{number_format($item->total_maret)}}</td>
+              <td style="text-align: right">{{number_format($item->total_april)}}</td>
+              <td style="text-align: right">{{number_format($item->total_mei)}}</td>
+              <td style="text-align: right">{{number_format($item->total_juni)}}</td>
+              <td style="text-align: right">{{number_format($item->total_juli)}}</td>
+              <td style="text-align: right">{{number_format($item->total_agustus)}}</td>
+              <td style="text-align: right">{{number_format($item->total_september)}}</td>
+              <td style="text-align: right">{{number_format($item->total_oktober)}}</td>
+              <td style="text-align: right">{{number_format($item->total_november)}}</td>
+              <td style="text-align: right">{{number_format($item->total_desember)}}</td>
             </tr>
+            @foreach ($item->rincian as $item2)
+            <tr>
+              <td></td>
+              <td>{{$item2->rincian->nama}}</td>
+              <td style="text-align: right">{{number_format($item2->anggaran)}}</td>
+              <td style="text-align: right">{{number_format($item2->total_rak)}}</td>
+              <td style="text-align: right">{{number_format($item2->januari)}}</td>
+              <td style="text-align: right">{{number_format($item2->februari)}}</td>
+              <td style="text-align: right">{{number_format($item2->maret)}}</td>
+              <td style="text-align: right">{{number_format($item2->april)}}</td>
+              <td style="text-align: right">{{number_format($item2->mei)}}</td>
+              <td style="text-align: right">{{number_format($item2->juni)}}</td>
+              <td style="text-align: right">{{number_format($item2->juli)}}</td>
+              <td style="text-align: right">{{number_format($item2->agustus)}}</td>
+              <td style="text-align: right">{{number_format($item2->september)}}</td>
+              <td style="text-align: right">{{number_format($item2->oktober)}}</td>
+              <td style="text-align: right">{{number_format($item2->november)}}</td>
+              <td style="text-align: right">{{number_format($item2->desember)}}</td>
+            </tr>
+            @endforeach
             @endforeach
             <tr>
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER BULAN</td>
