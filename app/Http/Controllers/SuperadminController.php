@@ -30,6 +30,7 @@ class SuperadminController extends Controller
 
         return view('superadmin.npd.index', compact('data'));
     }
+
     public function editNpd($id)
     {
         $data = NPD::find($id);
@@ -38,6 +39,7 @@ class SuperadminController extends Controller
         $s = Subkegiatan::get();
         return view('superadmin.npd.edit', compact('data', 'p', 'k', 's'));
     }
+
     public function uraianNpd($id)
     {
         $data = NPD::find($id);
@@ -45,6 +47,15 @@ class SuperadminController extends Controller
         $rincian = Rincian::get();
         return view('superadmin.npd.uraian', compact('data', 'rekening', 'rincian'));
     }
+
+    public function kendali_rak($id)
+    {
+        $data = NPD::find($id);
+        $rekening = Rekening::get();
+        $rincian = Rincian::get();
+        return view('superadmin.npd.kendali_rak', compact('data', 'rekening', 'rincian'));
+    }
+
     public function createNpd()
     {
         $p = Program::get();

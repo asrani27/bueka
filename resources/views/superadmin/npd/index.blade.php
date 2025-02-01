@@ -38,6 +38,8 @@
                 <td>{{$item->subkegiatan == null ? '': $item->subkegiatan->kode.' - '.$item->subkegiatan->nama}}</td>
 
                 <td>
+                  <a href="/superadmin/npd/kendalirak/{{$item->id}}" class="btn btn-sm  btn-success"><i
+                      class="fa fa-cubes"></i> KENDALI RAK</a>
                   <a href="/superadmin/npd/uraian/{{$item->id}}" class="btn btn-sm  btn-success"><i
                       class="fa fa-money"></i> URAIAN</a>
                   <a href="/superadmin/npd/edit/{{$item->id}}" class="btn btn-sm  btn-success"><i
