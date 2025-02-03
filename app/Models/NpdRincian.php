@@ -21,7 +21,7 @@ class NpdRincian extends Model
     public function getTotalRAKAttribute()
     {
         return $this->januari +
-            $this->feberuari +
+            $this->februari +
             $this->maret +
             $this->april +
             $this->mei +
