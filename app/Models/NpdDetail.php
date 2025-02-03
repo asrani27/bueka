@@ -80,7 +80,7 @@ class NpdDetail extends Model
     public function getTotalRAKAttribute()
     {
         return $this->total_januari +
-            $this->total_feberuari +
+            $this->total_februari +
             $this->total_maret +
             $this->total_april +
             $this->total_mei +
