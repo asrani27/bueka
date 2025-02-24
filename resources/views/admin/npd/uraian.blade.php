@@ -103,16 +103,17 @@
               <td>Sisa</td>
             </tr>
             @foreach ($detail as $key => $item)
-            <tr class="text-bold">
+            <tr class="text-bold bg-warning">
               <td>{{$key + 1}}</td>
               <td>{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
               <td>{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
               <td class="text-right">{{number_format($item->total_rincian)}}</td>
-              <td class="text-right">{{number_format($item->akumulasi)}}</td>
-              <td style="text-align: right">{{number_format($item->pencairan_saat_ini)}}
+              <td class="text-right">{{number_format($item->total_akumulasi_rincian)}}</td>
+              <td style="text-align: right">{{number_format($item->total_pencairan)}}
 
               </td>
-              <td class="text-right">{{number_format($item->sisa)}}</td>
+              <td class="text-right">{{number_format($item->total_rincian - $item->total_akumulasi_rincian -
+                $item->total_pencairan)}}</td>
             </tr>
             @foreach ($item->rincian as $key2 => $item2)
             <tr>
@@ -137,10 +138,11 @@
             @endforeach
             <tr style="background-color: aquamarine" class="text-bold">
               <td colspan=3>TOTAL</td>
-              <td class="text-right">{{number_format($data->detail->sum('anggaran'))}}</td>
-              <td></td>
-              <td style="text-align: right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
-              <td class="text-right">{{number_format($data->detail->sum('sisa'))}}</td>
+              <td class="text-right">{{number_format($data->total_dpa)}}</td>
+              <td style="text-align: right">{{number_format($data->total_akumulasi)}}</td>
+              <td style="text-align: right">{{number_format($data->total_pencairan)}}</td>
+              <td class="text-right">{{number_format($data->total_dpa - $data->total_akumulasi -
+                $data->total_pencairan)}}</td>
             </tr>
             <tr>
               <td colspan=6 style="text-align: center">PPN</td>

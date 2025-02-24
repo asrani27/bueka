@@ -24,7 +24,14 @@ class NpdDetail extends Model
     {
         return $this->hasMany(NpdRincian::class, 'npd_detail_id');
     }
-
+    public function getTotalAkumulasiRincianAttribute()
+    {
+        return $this->rincian->sum('akumulasi_rincian');
+    }
+    public function getTotalPencairanAttribute()
+    {
+        return $this->rincian->sum('pencairan');
+    }
     public function getTotalRincianAttribute()
     {
         return $this->rincian->sum('anggaran');

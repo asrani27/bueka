@@ -39,4 +39,12 @@ class NPD extends Model
     {
         return $this->detail->sum('total_rincian');
     }
+    public function getTotalAkumulasiAttribute()
+    {
+        return $this->detail->sum('total_akumulasi_rincian');
+    }
+    public function getTotalPencairanAttribute()
+    {
+        return $this->detail->sum('total_pencairan');
+    }
 }
