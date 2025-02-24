@@ -152,10 +152,11 @@
             @endforeach
             <tr style="background-color: aquamarine" class="text-bold">
               <td colspan=3>TOTAL</td>
-              <td class="text-right">{{number_format($data->detail->sum('anggaran'))}}</td>
-              <td class="text-right">{{number_format($data->detail->sum('akumulasi'))}}</td>
-              <td style="text-align: right">{{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
-              <td class="text-right">{{number_format($data->detail->sum('sisa'))}}</td>
+              <td class="text-right">{{number_format($data->total_dpa)}}</td>
+              <td style="text-align: right">{{number_format($data->total_akumulasi)}}</td>
+              <td style="text-align: right">{{number_format($data->total_pencairan)}}</td>
+              <td class="text-right">{{number_format($data->total_dpa - $data->total_akumulasi -
+                $data->total_pencairan)}}</td>
             </tr>
             <tr>
               <td colspan=6 style="text-align: center">PPN</td>
