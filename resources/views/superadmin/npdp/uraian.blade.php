@@ -110,6 +110,7 @@
               <td>Pencairan Saat Ini</td>
               <td>Sisa</td>
             </tr>
+
             @foreach ($detail as $key => $item)
 
             @if ($item->jenis == 1)

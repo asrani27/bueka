@@ -97,6 +97,7 @@ class NpdpController extends Controller
                 if ($item->npd->urut == null) {
 
                     $akumulasi = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('kode_subkegiatan', $data->kode_subkegiatan)->where('urut', '!=', null)->get();
+
                     $akumulasi->map(function ($item) {
                         $item->akumulasi = $item->detail->map(function ($item2) {
                             $item2->akumulasi = $item2->rincian->sum('pencairan');
@@ -112,8 +113,8 @@ class NpdpController extends Controller
                     $item->akumulasi = $da->where('kode_rekening', $item->kode_rekening)->sum('akumulasi');
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
-                    $item->rincian = $item->rincian->map(function ($item2) {
-                        $d = NPD::where('urut', '!=', null)->get();
+                    $item->rincian = $item->rincian->map(function ($item2) use ($data) {
+                        $d = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('urut', '!=', null)->get();
                         $npd_detail_id = $d->map(function ($item3) {
                             return $item3->detail->pluck('id');
                         })->flatten()->toArray();
@@ -141,8 +142,8 @@ class NpdpController extends Controller
                     $item->pencairan_saat_ini = $item->rincian->sum('pencairan');
                     $item->sisa = $item->anggaran - $item->pencairan_saat_ini - $item->akumulasi;
                     $noUrut = $item->npd->urut;
-                    $item->rincian = $item->rincian->map(function ($item2) use ($noUrut) {
-                        $d = NPD::where('urut', '<', $noUrut)->get();
+                    $item->rincian = $item->rincian->map(function ($item2) use ($noUrut, $data) {
+                        $d = NPD::where('tahun_anggaran', $data->tahun_anggaran)->where('urut', '<', $noUrut)->get();
                         $npd_detail_id = $d->map(function ($item3) {
                             return $item3->detail->pluck('id');
                         })->flatten()->toArray();
