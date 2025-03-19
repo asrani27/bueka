@@ -99,4 +99,8 @@ class NpdDetail extends Model
             $this->total_november +
             $this->total_desember;
     }
+    public function getRealisasiJanuariAttribute()
+    {
+        return $this->rincian;
+    }
 }

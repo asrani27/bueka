@@ -100,7 +100,7 @@
           <table width="100%">
             <tr class="text-center text-bold" style="background-color: rgb(247, 171, 208);">
               <td rowspan="3">Kode Rekening</td>
-              <td rowspan="3">Uraian</td>
+              <td rowspan="3" style="min-width:250px;">Uraian</td>
               <td rowspan="3">Anggaran Tahun Ini</td>
               <td rowspan="3">Total RAK</td>
               <td colspan="6">Semester I</td>
@@ -128,8 +128,9 @@
             </tr>
 
             @foreach ($data->detail as $key => $item)
-            <tr class="text-bold">
-              <td style="text-align: center">{{$item->kode_rekening}}</td>
+            <tr class="text-bold" style="font-size:12px">
+              <td style="text-align: center">{{$item->kode_rekening}}
+              </td>
               <td>{{$item->rekening->nama}}</td>
               <td style="text-align: right">{{number_format($item->total_rincian)}}</td>
               <td style="text-align: right">{{number_format($item->total_rak)}}</td>
@@ -147,14 +148,14 @@
               <td style="text-align: right">{{number_format($item->total_desember)}}</td>
             </tr>
             @foreach ($item->rincian as $item2)
-            <tr>
+            <tr style="font-size:12px">
               <td style="text-align: right">
                 <a href="/superadmin/npd/kendalirak/{{$data->id}}/edit/{{$item2->id}}"><i class="fa fa-edit"></i></a>
               </td>
               <td>{{$item2->rincian->nama}}</td>
               <td style="text-align: right">{{number_format($item2->anggaran)}}</td>
               <td style="text-align: right">{{number_format($item2->total_rak)}}</td>
-              <td style="text-align: right">{{number_format($item2->januari)}}</td>
+              <td style="text-align: right">{{number_format($item2->januari)}} </td>
               <td style="text-align: right">{{number_format($item2->februari)}}</td>
               <td style="text-align: right">{{number_format($item2->maret)}}</td>
               <td style="text-align: right">{{number_format($item2->april)}}</td>
@@ -167,16 +168,80 @@
               <td style="text-align: right">{{number_format($item2->november)}}</td>
               <td style="text-align: right">{{number_format($item2->desember)}}</td>
             </tr>
+            <tr style="font-size: 12px;">
+              <td colspan="4"></td>
+
+              <td style="text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,1,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,2,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,3,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,4,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,5,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,6,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,7,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,8,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,9,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style="text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,10,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,11,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+              <td style=" text-align: right; background-color:rgb(225, 247, 232)">
+                {{number_format(realisasiBulanan($item2->kode_rincian,12,$data->tahun_anggaran))}}</td
+                style="text-align: right">
+            </tr>
             @endforeach
             @endforeach
-            <tr>
+            <tr style="font-size:12px">
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER BULAN</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_januari)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_februari)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_maret)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_april)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_mei)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_juni)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_juli)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_agustus)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_september)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_oktober)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_november)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_desember)}}</td>
             </tr>
-            <tr>
+            <tr style="font-size:12px">
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER TRIWULAN</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_satu)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_dua)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_tiga)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_empat)}}</td>
             </tr>
-            <tr>
+            <tr style="font-size:12px">
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER SEMESTER</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td colspan="6" style="text-align: center;font-weight:bold">{{number_format($data->semester_satu)}}</td>
+              <td colspan="6" style="text-align: center;font-weight:bold">{{number_format($data->semester_dua)}}</td>
             </tr>
           </table>
         </div>

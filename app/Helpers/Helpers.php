@@ -1,9 +1,22 @@
 <?php
 
+use App\Models\NPD;
 use Carbon\Carbon;
 use App\Models\Tahun;
 use App\Models\Status;
 
+function realisasiBulanan($kode_rincian, $bulan, $tahun)
+{
+    return NPD::whereMonth('tanggal', $bulan)
+        ->whereYear('tanggal', $tahun)
+        ->with('detail.rincian')
+        ->get()
+        ->flatMap(function ($npd) use ($kode_rincian) {
+            return $npd->detail->flatMap(function ($detail) use ($kode_rincian) {
+                return $detail->rincian->where('kode_rincian', $kode_rincian);
+            });
+        })->sum('pencairan');
+}
 function penyebut($nilai)
 {
     $nilai = abs($nilai);

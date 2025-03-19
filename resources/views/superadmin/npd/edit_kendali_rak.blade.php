@@ -237,12 +237,36 @@
             @endforeach
             <tr>
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER BULAN</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_januari)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_februari)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_maret)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_april)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_mei)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_juni)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_juli)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_agustus)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_september)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_oktober)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_november)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->jumlah_desember)}}</td>
             </tr>
             <tr>
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER TRIWULAN</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_satu)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_dua)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_tiga)}}</td>
+              <td colspan="3" style="text-align: center;font-weight:bold">{{number_format($data->triwulan_empat)}}</td>
             </tr>
             <tr>
               <td colspan="2">JUMLAH ALOKASI KAS YANG TERSEDIA DARI BELANJA PER SEMESTER</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_anggaran)}}</td>
+              <td style="text-align: right;font-weight:bold">{{number_format($data->alokasi_rak)}}</td>
+              <td colspan="6" style="text-align: center;font-weight:bold">{{number_format($data->semester_satu)}}</td>
+              <td colspan="6" style="text-align: center;font-weight:bold">{{number_format($data->semester_dua)}}</td>
             </tr>
           </table>
         </div>
