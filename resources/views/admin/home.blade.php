@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    
+
 @endpush
 @section('content')
 <div class="row">
@@ -15,39 +15,57 @@
         <div class="progress">
           <div class="progress-bar" style="width: 100%"></div>
         </div>
-            <span class="progress-description">
-              Untuk mengelola data, silahkan gunakan menu yang ada di sebelah kiri
-            </span>
+        <span class="progress-description">
+          Untuk mengelola data, silahkan gunakan menu yang ada di sebelah kiri
+        </span>
       </div>
       <!-- /.info-box-content -->
     </div>
     <!-- /.info-box -->
   </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    Tampilkan Data Tahun :
+    <form method="POST" action="/admin/simpantahun">
+      @csrf
+      <select class="form-control" name="tahun">
+        <option value="" {{tahunAktif('admin')==null ? 'selected' :''}}>-Semua-</option>
+        @foreach ($tahun as $item)
+        <option value="{{$item->id}}" {{tahunAktif('admin')==$item->tahun ? 'selected' :''}}>{{$item->tahun}}
+        </option>
+        @endforeach
+
+      </select>
+
+      <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
+
+    </form>
+    <!-- /.info-box -->
+  </div>
   <!-- /.col -->
 </div>
 {{-- <div class="row">
-    <div class="col-md-12">
-         <!-- BAR CHART -->
-         <div class="box box-success">
-            <div class="box-header with-border">
-              <h3 class="box-title">Grafik Pembuatan Surat Kematian</h3>
+  <div class="col-md-12">
+    <!-- BAR CHART -->
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Grafik Pembuatan Surat Kematian</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <canvas id="barChart" style="height:230px"></canvas>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <canvas id="barChart" style="height:230px"></canvas>
+        </div>
+      </div>
+      <!-- /.box-body -->
     </div>
-    
+    <!-- /.box -->
+  </div>
+
 </div> --}}
 
 
@@ -56,7 +74,7 @@
 
 <script src="/assets/bower_components/chart.js/Chart.js"></script>
 <script>
-    $(function () {
+  $(function () {
       /* ChartJS
        * -------
        * Here we will create a few charts using ChartJS

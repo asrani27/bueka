@@ -85,12 +85,15 @@
   </div>
   <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs-12">
+    Tampilkan Data Tahun :
     <form method="POST" action="/superadmin/simpantahun">
       @csrf
       <select class="form-control" name="tahun">
-        <option value="" {{tahunAktif()==null ? 'selected' :''}}>-Semua-</option>
-        <option value="2025" {{tahunAktif()=='2025' ? 'selected' :''}}>2025</option>
-        <option value="2024" {{tahunAktif()=='2024' ? 'selected' :''}}>2024</option>
+        <option value="" {{tahunAktif('superadmin')==null ? 'selected' :''}}>-Semua-</option>
+        @foreach ($tahun as $item)
+        <option value="{{$item->id}}" {{tahunAktif('superadmin')==$item->tahun ? 'selected' :''}}>{{$item->tahun}}
+        </option>
+        @endforeach
 
       </select>
 

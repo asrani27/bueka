@@ -125,9 +125,12 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::post('admin/simpantahun', [HomeController::class, 'simpantahun2']);
     Route::get('admin', [HomeController::class, 'admin']);
     Route::get('admin/gp', [GantiPasswordController::class, 'index']);
     Route::get('admin/npd', [NPDController::class, 'index']);
+    Route::get('admin/kendalirak', [NPDController::class, 'npd']);
+    Route::get('admin/kendalirak/{id}', [NPDController::class, 'kendali_rak']);
     Route::get('admin/npd/pdf/{id}', [NPDController::class, 'pdf']);
     Route::get('admin/npd/uraian/{id}', [NPDController::class, 'uraian']);
     Route::post('admin/npd/uraian/{id}/ppn', [NPDController::class, 'ppn']);

@@ -19,7 +19,7 @@ class SuperadminController extends Controller
     public function npd()
     {
         $data = NPD::where('jenis', 'anggaran')
-            ->when(tahunAktif() !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif()))
+            ->when(tahunAktif('superadmin') !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif('superadmin')))
             ->orderBy('id', 'DESC')
             ->get();
         //dd($data);

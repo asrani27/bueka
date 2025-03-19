@@ -62,7 +62,7 @@ class NpdpController extends Controller
     public function index()
     {
         $data = NPD::where('jenis', 'pencairan')
-            ->when(tahunAktif() !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif()))
+            ->when(tahunAktif('superadmin') !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif('superadmin')))
             ->where('status', 1)
             ->orderBy('id', 'DESC')
             ->get();

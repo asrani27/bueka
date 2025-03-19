@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\NPD;
+use App\Models\Rincian;
+use App\Models\Rekening;
 use App\Models\NpdDetail;
 use App\Models\NpdRincian;
 use Illuminate\Http\Request;
@@ -13,9 +15,33 @@ use Illuminate\Support\Facades\Session;
 
 class NPDController extends Controller
 {
+    public function npd()
+    {
+        $data = NPD::where('jenis', 'anggaran')
+            ->when(tahunAktif('admin') !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif('admin')))
+            ->orderBy('id', 'DESC')
+            ->get();
+        //dd($data);
+        $data->transform(function ($item) {
+            $item->dpa = $item->detail->sum('anggaran');
+            return $item;
+        });
+
+        return view('admin.kendalirak.index', compact('data'));
+    }
+    public function kendali_rak($id)
+    {
+        $data = NPD::find($id);
+        $rekening = Rekening::get();
+        $rincian = Rincian::get();
+        return view('admin.kendalirak.kendali_rak', compact('data', 'rekening', 'rincian'));
+    }
     public function index()
     {
-        $data = NPD::where('user_id', Auth::user()->id)->orWhere('status', 1)->orderBy('id', 'DESC')->paginate(20);
+
+        $data = NPD::where('tahun_anggaran', tahunAktif('admin'))->where('status', 1)->orderBy('id', 'DESC')->paginate(20);
+
+        //dd($data, tahunAktif('admin'), NPD::where('tahun_anggaran', tahunAktif('admin'))->get());
         $data->getCollection()->transform(function ($item) {
             $item->jumlah_dana = $item->detail->map(function ($item2) {
                 $item2->pencairan_saat_ini = $item2->rincian->sum('pencairan');

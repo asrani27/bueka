@@ -52,9 +52,9 @@ function status()
     $result = Status::where('tahun', $year)->first()[$month];
     return $result;
 }
-function tahunAktif()
+function tahunAktif($roles)
 {
-    $tahun = Tahun::where('is_aktif', 1)->first();
+    $tahun = Tahun::where('roles', $roles)->where('is_aktif', 1)->first();
     if ($tahun == null) {
         $result = null;
     } else {
