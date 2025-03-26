@@ -39,7 +39,7 @@ class NPDController extends Controller
     public function index()
     {
 
-        $data = NPD::where('tahun_anggaran', tahunAktif('admin'))->where('status', 1)->orderBy('id', 'DESC')->paginate(20);
+        $data = NPD::where('tahun_anggaran', tahunAktif('admin'))->where('jenis', 'pencairan')->orderBy('id', 'DESC')->paginate(20);
 
         //dd($data, tahunAktif('admin'), NPD::where('tahun_anggaran', tahunAktif('admin'))->get());
         $data->getCollection()->transform(function ($item) {
