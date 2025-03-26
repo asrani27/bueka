@@ -149,7 +149,10 @@ class NPDController extends Controller
     }
     public function create()
     {
-        $subkegiatan = NPD::where('jenis', 'anggaran')->get();
+        $subkegiatan = NPD::where('jenis', 'anggaran')
+            ->when(tahunAktif('admin') !== null, fn($query) => $query->where('tahun_anggaran', tahunAktif('admin')))
+            ->orderBy('id', 'DESC')
+            ->get();
         return view('admin.npd.create', compact('subkegiatan'));
     }
 
