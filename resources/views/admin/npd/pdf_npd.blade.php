@@ -96,6 +96,7 @@
             <th style="border:1px solid black;text-align:center;padding:7px">Pencairan Saat Ini</th>
             <th style="border:1px solid black;text-align:center;padding:7px">Sisa</th>
         </tr>
+        {{dd($detail)}}
         @foreach ($detail as $key => $item)
         <tr class="text-bold">
             <td style="border:1px solid black;padding:3px">{{$key + 1}}</td>
