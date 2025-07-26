@@ -96,34 +96,34 @@
             <th style="border:1px solid black;text-align:center;padding:7px">Pencairan Saat Ini</th>
             <th style="border:1px solid black;text-align:center;padding:7px">Sisa</th>
         </tr>
-        {{dd($detail)}}
+
         @foreach ($detail as $key => $item)
         <tr class="text-bold">
             <td style="border:1px solid black;padding:3px">{{$key + 1}}</td>
             <td style="border:1px solid black;padding:3px">{{$item->rekening == null ? '' : $item->rekening->kode}}</td>
             <td style="border:1px solid black;padding:3px">{{$item->rekening == null ? '' : $item->rekening->nama}}</td>
-            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->total_rincian)}}
-            </td>
+
+            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->anggaran)}}</td>
+
+            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->akumulasi)}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">
-                {{number_format($item->total_akumulasi_rincian)}}</td>
-            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->total_pencairan)}}
-            </td>
-            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->total_rincian -
-                $item->total_akumulasi_rincian -
-                $item->total_pencairan)}}</td>
+                {{number_format($item->pencairan_saat_ini)}}</td>
+            <td style="text-align: right;border:1px solid black;padding:3px">{{number_format($item->sisa)}}</td>
         </tr>
         @endforeach
         <tr class="text-bold" style="font-weight: bold">
             <td colspan=3 style="text-align: right;border:1px solid black;padding:3px">TOTAL</td>
+
+
+
             <td style="text-align: right;border:1px solid black;padding:3px">
-                {{number_format($data->total_dpa)}}</td>
+                {{number_format($data->detail->sum('anggaran'))}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">
-                {{number_format($data->total_akumulasi)}}</td>
+                {{number_format($data->detail->sum('akumulasi'))}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">
-                {{number_format($data->total_pencairan)}}</td>
+                {{number_format($data->detail->sum('pencairan_saat_ini'))}}</td>
             <td style="text-align: right;border:1px solid black;padding:3px">
-                {{number_format($data->total_dpa - $data->total_akumulasi -
-                $data->total_pencairan)}}</td>
+                {{number_format($data->detail->sum('sisa'))}}</td>
         </tr>
         <tr>
             <td colspan=6 style="text-align: right;border:1px solid black;padding:3px">PPN</td>
