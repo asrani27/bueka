@@ -104,7 +104,7 @@
 
                     </div>
                     <div class="text-center">
-                      Aplikasi Bu Eka
+                      Aplikasi Versi 1.0.1
                     </div>
                   </div>
                 </form>
