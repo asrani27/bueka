@@ -37,6 +37,7 @@ class RekeningController extends Controller
     public function edit($id)
     {
         $data = Rekening::find($id);
+
         return view('superadmin.rekening.edit', compact('data'));
     }
     public function update(Request $req, $id)

@@ -12,6 +12,6 @@ class Rekening extends Model
     protected $guarded = ['id'];
     public $timestamps = false;
 
-    protected $primaryKey = 'kode';
-    public $incrementing = false;
+    // protected $primaryKey = 'kode';
+    // public $incrementing = false;
 }
