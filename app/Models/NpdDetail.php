@@ -13,7 +13,7 @@ class NpdDetail extends Model
 
     public function rekening()
     {
-        return $this->belongsTo(Rekening::class, 'kode_rekening');
+        return $this->belongsTo(Rekening::class, 'kode_rekening', 'kode');
     }
 
     public function npd()
